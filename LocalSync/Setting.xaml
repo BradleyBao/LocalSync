@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="LocalSync.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LocalSync"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <!-- These styles can be referenced to create a consistent SettingsPage layout -->
+        <!-- Reference SettingsExpander Page in Windows Community Toolkit Gallery for the full sample -->
+
+        <!-- Spacing between cards -->
+        <x:Double x:Key="SettingsCardSpacing">4</x:Double>
+
+        <!-- Style (inc. the correct spacing) of a section header -->
+        <Style x:Key="SettingsSectionHeaderTextBlockStyle"
+               BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+               TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Margin" Value="1,30,0,6" />
+            </Style.Setters>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="Auto" />-->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="contentSV.Padding" Value="16,0" />
+                        <Setter Target="PageHeader.Margin" Value="16,48,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <TextBlock
+        x:Name="TitleTxt"
+        x:Uid="SettingTitle"
+        Margin="36,24,36,24"
+        Grid.Row="0"
+        Style="{StaticResource TitleTextBlockStyle}" />
+
+        <ScrollViewer
+        x:Name="ComputerManager"
+        Grid.Row="1"
+        Padding="36,0,36,0"
+        IsTabStop="False"
+        UseSystemFocusVisuals="False"
+        VerticalScrollBarVisibility="Auto"
+        VerticalScrollMode="Auto">
+            <StackPanel>
+                <!-- Page Style Section -->
+                <!--<ComboBox x:Name="PageStyleComboBox" SelectionChanged="themeMode_SelectionChanged">
+                    <ComboBoxItem Content="Light" Tag="Light"/>
+                    <ComboBoxItem Content="Dark" Tag="Dark"/>
+                    <ComboBoxItem Content="Use System Setting" Tag="Default"/>
+                </ComboBox>-->
+
+                <!-- PC Name Section -->
+                <TextBlock Text="PC Name" x:Uid="pcNameHeadingUid" x:Name="pcNameHeading" Style ="{StaticResource SettingsSectionHeaderTextBlockStyle }"/>
+                <TextBox x:Name="PcNameTextBox" TextChanged="PcNameTextBox_TextChanged"/>
+
+                <!-- File Save Path Section -->
+                <TextBlock Text="Saved Folder Path" x:Uid="savePathFolderHeadingUid" x:Name="savePathFolderHeading" Style ="{StaticResource SettingsSectionHeaderTextBlockStyle }"/>
+                <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                    <Button x:Name="PickSavedPath" Content="Choose Saved Path"
+                        Click="PickSavedPath_Click" Margin="0,0,0,10"/>
+                    <Button x:Name="ResetPickSavedPath" Content="Reset"
+                        Click="ResetPickSavedPath_Click" Margin="0,0,0,10"/>
+                    <TextBlock x:Name="PickSavedPathTextOutput" TextWrapping="Wrap" Padding="20,5,0,0"/>
+                </StackPanel>
+
+                <TextBlock Text="Language" x:Uid="LanguageSettingHeadingUid" x:Name="LanguageSettingHeading" Style ="{StaticResource SettingsSectionHeaderTextBlockStyle }"/>
+                <ComboBox x:Name="LanguageComboBox" SelectionChanged="LanguageComboBox_SelectionChanged">
+                    <ComboBoxItem Content="English" Tag="en-US" />
+                    <ComboBoxItem Content="中文" Tag="zh-CN" />
+                </ComboBox>
+
+                <!-- Receive File Port Section -->
+                <!--<TextBlock Text="接收文件端口" Style ="{StaticResource SettingsSectionHeaderTextBlockStyle }"/>
+                <TextBox x:Name="ReceiveFilePortTextBox" TextChanged="ReceiveFilePortTextBox_TextChanged"/>-->
+
+                <!-- Broadcast Port Section -->
+                <!--<TextBlock Text="广播端口" Style ="{StaticResource SettingsSectionHeaderTextBlockStyle }"/>
+                <TextBox x:Name="BroadcastPortTextBox" TextChanged="BroadcastPortTextBox_TextChanged"/>-->
+            </StackPanel>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>

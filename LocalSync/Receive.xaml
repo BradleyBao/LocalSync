@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="LocalSync.ReceivePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LocalSync"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:l="using:LocalSync.Modules"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="FileListView" x:DataType="l:DataType">
+            <Grid>
+                <Grid.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Download"/>
+                        <MenuFlyoutItem Text="Rename"/>
+                        <MenuFlyoutItem Text="Move To"/>
+                        <MenuFlyoutItem Text="Delete"/>
+                    </MenuFlyout>
+                </Grid.ContextFlyout>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon
+                    Grid.RowSpan="1"
+                    Width="25"
+                    Height="25"
+                    Margin="6"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Glyph="{x:Bind dataFileIcon}"
+                    />
+                <TextBlock Grid.Column="1"
+                   Text="{x:Bind Name}"
+                   Style="{ThemeResource BaseTextBlockStyle}"
+                   Margin="12,6,0,0"/>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="contentSV.Padding" Value="16,0" />
+                        <Setter Target="PageHeader.Margin" Value="16,48,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <TextBlock
+            x:Name="TitleTxt"
+            x:Uid="RecvTitle"
+            Margin="36,24,36,24"
+            Style="{StaticResource TitleTextBlockStyle}" />
+
+        <ScrollViewer
+            x:Name="FileManager"
+            Grid.Row="2"
+            Padding="36,0,36,0"
+            IsTabStop="False"
+            UseSystemFocusVisuals="False"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Auto">
+
+            <Border x:Name="UploadBanner" Background="Transparent" AllowDrop="True" Drop="UploadFiles" DragOver="UploadFiles_DragOver" DragEnter="UploadFiles_Enter">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <BreadcrumbBar x:Name="Address_Bar" Grid.Column="0" Grid.Row="0">
+                        <BreadcrumbBar.ItemTemplate>
+                            <DataTemplate x:DataType="l:Folder">
+                                <BreadcrumbBarItem Content="{Binding}" AutomationProperties.Name="{Binding folder_name}">
+                                    <BreadcrumbBarItem.ContentTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding folder_name}" />
+                                        </DataTemplate>
+                                    </BreadcrumbBarItem.ContentTemplate>
+                                </BreadcrumbBarItem>
+                            </DataTemplate>
+                        </BreadcrumbBar.ItemTemplate>
+                    </BreadcrumbBar>
+                    <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="0" Grid.Row="1">
+                        <AppBarButton x:Name="OpenContainingFolder" x:Uid="OpenContainingFolderUid" Click="OpenContainingFolder_Click" Icon="OpenFile" Label="Open Containing Folder"/>
+                        <AppBarButton Icon="Download" Label="Download"/>
+                        <AppBarButton Icon="Rename" Label="Rename"/>
+                        <AppBarButton Icon="Share" Label="Share"/>
+                        <AppBarButton x:Name="DeleteFiles" x:Uid="DeleteFilesUid" Icon="Delete" Label="Delete"/>
+                        <AppBarSeparator></AppBarSeparator>
+                        <CommandBar.SecondaryCommands>
+
+                            <AppBarButton Icon="List" Label="List View"></AppBarButton>
+                            <AppBarButton x:Name="GridViewBtn" Icon="View" Label="Grid View"></AppBarButton>
+
+                            <AppBarButton Icon="Setting" Label="Settings">
+                                <AppBarButton.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="I" />
+                                </AppBarButton.KeyboardAccelerators>
+                            </AppBarButton>
+                        </CommandBar.SecondaryCommands>
+                    </CommandBar>
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" x:Uid="RecvFileHeading"
+    x:Name="FileListViewHeading"
+    Margin="6,12,0,12"
+    Style="{StaticResource SubheaderTextBlockStyle}" />
+
+                    <ListView Grid.Column="0" Grid.Row="3" ItemTemplate="{StaticResource FileListView}" x:Name="FileList" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Extended" />
+
+
+                </Grid>
+            </Border>
+
+            
+        </ScrollViewer>
+        
+    </Grid>
+</Page>

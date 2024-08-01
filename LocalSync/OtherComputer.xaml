@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="LocalSync.OtherComputerSharing"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LocalSync"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:l="using:LocalSync.Modules"
+    Loaded="Page_Loaded"
+    NavigationCacheMode="Disabled"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Page.Resources>
+        <!--<DataTemplate x:Key="GridTemplateItem" x:DataType="l:OtherComputersGrid">
+            <Grid AutomationProperties.Name="{x:Bind deviceIP}" Width="200" Height="200">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                --><!-- Logo in the middle --><!--
+                <SymbolIcon
+                    Grid.RowSpan="1"
+                    Width="50"
+                    Height="50"
+                    Margin="6"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Symbol="Folder"
+                    />
+
+                --><!-- Content description --><!--
+                <StackPanel Grid.Column="0" Grid.Row="1" Margin="8,0,0,8" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <TextBlock Text="{x:Bind deviceName}" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="0,0,0,8"/>
+                    <TextBlock Text="{x:Bind deviceIP}" Style="{ThemeResource BodyTextBlockStyle}" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>-->
+
+        <DataTemplate x:Key="GridTemplateItem" x:DataType="l:OtherComputersGrid">
+            <ItemContainer
+                AutomationProperties.Name="{Binding deviceName}"
+                ToolTipService.ToolTip="{Binding deviceIP}"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                Tapped="DeviceGrid_SelectItem"
+                Width="96"
+                Height="96"
+                Margin="4">
+                <Grid>
+                    <!--  Icon  -->
+                    <Viewbox
+                        Grid.Row="1"
+                        Width="28"
+                        Height="28"
+                        Margin="0,0,0,10">
+                        <FontIcon
+                            x:Name="IconGlyph"
+                            Grid.Row="1"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            Glyph="{Binding iconName}" />
+                    </Viewbox>
+
+                    <!--  Icon name/descriptor  -->
+                    <TextBlock
+                        x:Name="IconName"
+                        Grid.Row="2"
+                        Margin="6,0,6,8"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding deviceName}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="NoWrap" />
+                </Grid>
+            </ItemContainer>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="Auto" />-->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="contentSV.Padding" Value="16,0" />
+                        <Setter Target="PageHeader.Margin" Value="16,48,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <!--<ProgressBar x:Name="syncProgressDevices" Grid.Row="0" Width="Auto" IsIndeterminate="False" ShowPaused="False" ShowError="False" Value="100" />-->
+        <TextBlock
+            x:Name="TitleTxt"
+            x:Uid="ComputersTitle"
+            Margin="36,24,36,24"
+            Grid.Row="0"
+            Style="{StaticResource TitleTextBlockStyle}" />
+        
+        <ScrollViewer
+            x:Name="ComputerManager"
+            Grid.Row="1"
+            Padding="36,0,36,0"
+            IsTabStop="False"
+            UseSystemFocusVisuals="False"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Auto">
+
+            <!--<GridView
+                x:Name="DeviceGrids"
+                ItemTemplate="{StaticResource GridTemplateItem}"
+                IsItemClickEnabled="False"
+                CanDragItems="True"
+                AllowDrop="True"
+                CanReorderItems="True"
+                SelectionMode="Single"
+                SelectionChanged="DeviceGrid_SelectionChanged"
+                ItemClick="DeviceGrid_ItemClick"
+                FlowDirection="LeftToRight"/>-->
+            
+            <ItemsView
+                x:Name="DeviceGrids"
+                MinWidth="100"
+                Margin="0,0,0,36"
+                HorizontalAlignment="Stretch"
+                
+                ItemTemplate="{StaticResource GridTemplateItem}"
+                TabFocusNavigation="Once">
+                <ItemsView.Layout>
+                    <UniformGridLayout Orientation="Horizontal" />
+                </ItemsView.Layout>
+            </ItemsView>
+        </ScrollViewer>
+    </Grid>
+
+    
+
+</Page>

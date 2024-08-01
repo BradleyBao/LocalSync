@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LocalSync (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "LocalSync (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
