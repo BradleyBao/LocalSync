@@ -68,7 +68,9 @@ namespace LocalSync
         public App()
         {
             this.InitializeComponent();
-            
+            this.UnhandledException += App_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
         /// <summary>
@@ -105,6 +107,8 @@ namespace LocalSync
             //resourceContext.QualifierValues["Language"] = "en-US";
             resourceContext.QualifierValues["Language"] = languageCode;
             //var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+
+
         }
 
         static async Task StartServer()
@@ -165,7 +169,41 @@ namespace LocalSync
             var themeIndex = (int)(localSettings.Values["PageStyleIndex"] ?? 0);
         }
 
+        private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            HandleException(e.Exception);
+            e.Handled = true; // Prevent the application from crashing
+        }
 
+        private void CurrentDomain_UnhandledException(object sender, System.UnhandledExceptionEventArgs e)
+        {
+            HandleException(e.ExceptionObject as Exception);
+        }
+
+        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            HandleException(e.Exception);
+            e.SetObserved();
+        }
+
+        private async void HandleException(Exception ex)
+        {
+            if (ex != null)
+            {
+                string logFilePath = System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, "CrashReport.log");
+                string logContent = $"[{DateTime.Now}] {ex.ToString()}\n";
+                await System.IO.File.AppendAllTextAsync(logFilePath, logContent);
+                ContentDialog dialog = new ContentDialog();
+                dialog.XamlRoot = mainWindow.Content.XamlRoot;
+                dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                dialog.Title = "Application Crashed! ";
+                dialog.PrimaryButtonText = "OK";
+                dialog.DefaultButton = ContentDialogButton.Primary;
+                dialog.Content = $"Crash information has been logged in {logFilePath}. You may restart the app. ";
+
+                _ = await dialog.ShowAsync();
+            }
+        }
 
     }
 }

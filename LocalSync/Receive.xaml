@@ -51,6 +51,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
@@ -72,10 +73,21 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <TextBlock
+            Grid.Row="0"
             x:Name="TitleTxt"
             x:Uid="RecvTitle"
             Margin="36,24,36,24"
             Style="{StaticResource TitleTextBlockStyle}" />
+        <InfoBar
+            x:Name="DeleteFileInfoBar"
+            x:Uid="DeleteFileInfoBar_Uid"
+            Grid.Row="1"
+            IsOpen="False"
+            IsIconVisible="True"
+            Severity="Error"
+            IsClosable="True"
+            Title="Error"
+            Message="Unable to delete some files / folders. " />
 
         <ScrollViewer
             x:Name="FileManager"
@@ -108,11 +120,11 @@
                         </BreadcrumbBar.ItemTemplate>
                     </BreadcrumbBar>
                     <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="0" Grid.Row="1">
-                        <AppBarButton x:Name="OpenContainingFolder" x:Uid="OpenContainingFolderUid" Click="OpenContainingFolder_Click" Icon="OpenFile" Label="Open Containing Folder"/>
+                        <AppBarButton x:Name="OpenContainingFolder" x:Uid="OpenContainingFolderUid" Click="OpenContainingFolder_Click" Label="Open Containing Folder"/>
                         <AppBarButton Icon="Download" Label="Download"/>
                         <AppBarButton Icon="Rename" Label="Rename"/>
                         <AppBarButton Icon="Share" Label="Share"/>
-                        <AppBarButton x:Name="DeleteFiles" x:Uid="DeleteFilesUid" Icon="Delete" Label="Delete"/>
+                        <AppBarButton x:Name="DeleteFiles" x:Uid="DeleteFilesUid" Icon="Delete" Click="DeleteItem_Click" Label="Delete"/>
                         <AppBarSeparator></AppBarSeparator>
                         <CommandBar.SecondaryCommands>
 

@@ -81,9 +81,9 @@
                 <!-- File Save Path Section -->
                 <TextBlock Text="Saved Folder Path" x:Uid="savePathFolderHeadingUid" x:Name="savePathFolderHeading" Style ="{StaticResource SettingsSectionHeaderTextBlockStyle }"/>
                 <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
-                    <Button x:Name="PickSavedPath" Content="Choose Saved Path"
+                    <Button x:Name="PickSavedPath" x:Uid="PickSavedPath_Uid" Content="Choose Saved Path"
                         Click="PickSavedPath_Click" Margin="0,0,0,10"/>
-                    <Button x:Name="ResetPickSavedPath" Content="Reset"
+                    <Button x:Name="ResetPickSavedPath" x:Uid="ResetPickSavedPath_Uid" Content="Reset"
                         Click="ResetPickSavedPath_Click" Margin="0,0,0,10"/>
                     <TextBlock x:Name="PickSavedPathTextOutput" TextWrapping="Wrap" Padding="20,5,0,0"/>
                 </StackPanel>

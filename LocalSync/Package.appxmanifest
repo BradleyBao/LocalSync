@@ -10,7 +10,7 @@
   <Identity
     Name="de0d2d91-ec68-48cb-a2cb-630ff49afe5e"
     Publisher="CN=Tian_Yi_Bao, C=China"
-    Version="1.0.0.0" />
+    Version="0.1.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="de0d2d91-ec68-48cb-a2cb-630ff49afe5e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

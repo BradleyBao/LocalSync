@@ -126,6 +126,12 @@
   <data name="ComputersTitle.Text" xml:space="preserve">
     <value>Computers in this Network</value>
   </data>
+  <data name="DeleteFileInfoBar_Uid.Message" xml:space="preserve">
+    <value>Unable to delete some files / folders. Please delete manually. </value>
+  </data>
+  <data name="DeleteFileInfoBar_Uid.Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="DeleteFilesUid.Label" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -156,6 +162,9 @@
   <data name="pickFoldersBtnUid.Text" xml:space="preserve">
     <value>Select a folder</value>
   </data>
+  <data name="PickSavedPath_Uid.Content" xml:space="preserve">
+    <value>Choose Files' Save Path</value>
+  </data>
   <data name="ReceiveNavUid.Content" xml:space="preserve">
     <value>Received Page</value>
   </data>
@@ -170,6 +179,9 @@
   </data>
   <data name="RecvTitle.Text" xml:space="preserve">
     <value>Received Files</value>
+  </data>
+  <data name="ResetPickSavedPath_Uid.Content" xml:space="preserve">
+    <value>Reset</value>
   </data>
   <data name="savePathFolderHeadingUid.Text" xml:space="preserve">
     <value>Saved Folder Path</value>

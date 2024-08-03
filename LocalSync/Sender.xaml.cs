@@ -22,6 +22,8 @@ using Windows.Storage.Pickers;
 using static System.Net.WebRequestMethods;
 using Windows.ApplicationModel.Resources;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.UI.Input;
+using Microsoft.UI; 
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -46,6 +48,12 @@ namespace LocalSync
 
         private async void startTransfer(object sender, RoutedEventArgs e)
         {
+
+            if (file_send_list.Count == 0 && folder_send_list.Count == 0)
+            {
+                return; 
+            }
+
             App.transferring_files = true;
             App.mainWindow.setStatusNav(false); 
             transferStatus.ShowPaused = false;
@@ -130,6 +138,10 @@ namespace LocalSync
 
         internal void AddFilesToList(IReadOnlyList<StorageFile> files)
         {
+            if (App.target_device != null) {
+                startBtn.IsEnabled = true;
+            }
+            
             foreach (StorageFile file in files)
             {
                 FileInfo this_file_info = new FileInfo(file.Path);
@@ -150,6 +162,10 @@ namespace LocalSync
 
         internal void AddFolderToList(StorageFolder folder)
         {
+            if (App.target_device != null)
+            {
+                startBtn.IsEnabled = true;
+            }
             DirectoryInfo this_folder_info = new DirectoryInfo(folder.Path);
             string name = System.IO.Path.GetFileNameWithoutExtension(folder.Path);
             Folder this_folder = new Folder(name, this_folder_info.LastWriteTime, folder.Path);
@@ -160,6 +176,22 @@ namespace LocalSync
             );
 
             UnifiedListView.ItemsSource = dataTypeList;
+        }
+
+        private void SelectTargetDevice_Click(object sender, RoutedEventArgs e)
+        {
+            App.mainWindow.navSwitchTo("Computers");
+        }
+
+        private void SelectTargetDevice_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            receiverDevice.Background = (SolidColorBrush)Application.Current.Resources["SystemControlBackgroundAccentBrush"];
+            
+        }
+
+        private void SelectTargetDevice_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            receiverDevice.Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundFillColorDefaultBrush"];
         }
 
         internal void InitUI()
@@ -210,6 +242,9 @@ namespace LocalSync
                 file_send_list.Cast<LocalSync.Modules.DataType>().Concat(folder_send_list.Cast<LocalSync.Modules.DataType>())
                 );
                 UnifiedListView.ItemsSource = dataTypeList;
+            } else
+            {
+                startBtn.IsEnabled = false;
             }
 
         }

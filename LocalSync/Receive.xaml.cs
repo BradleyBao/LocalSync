@@ -69,6 +69,8 @@ namespace LocalSync
             this.FileListViewHeading.Text = resourceMap.GetValue("RecvFileHeading/Text", resourceContext).ValueAsString;
             this.OpenContainingFolder.Label = resourceMap.GetValue("OpenContainingFolderUid/Label", resourceContext).ValueAsString;
             this.DeleteFiles.Label = resourceMap.GetValue("DeleteFilesUid/Label", resourceContext).ValueAsString;
+            this.DeleteFileInfoBar.Title = resourceMap.GetValue("DeleteFileInfoBar_Uid/Title", resourceContext).ValueAsString;
+            this.DeleteFileInfoBar.Message = resourceMap.GetValue("DeleteFileInfoBar_Uid/Message", resourceContext).ValueAsString;
         }
 
         internal void CreateSharedFolder(string folderPath, string shareName)
@@ -172,6 +174,55 @@ namespace LocalSync
             FontIcon gridView_Icon = new FontIcon();
             gridView_Icon.Glyph = "\uF0E2";
             GridViewBtn.Icon = gridView_Icon;
+
+            FontIcon openFolder_Icon = new FontIcon(); 
+            openFolder_Icon.Glyph = "\uE838";
+            OpenContainingFolder.Icon = openFolder_Icon;
+        }
+
+        private void DeleteItem_Click(object sender, RoutedEventArgs e) {
+            if (FileList.SelectedItems != null)
+            {
+                foreach (Modules.DataType selectedItem in FileList.SelectedItems)
+                {
+                    foreach (Modules.File eachFile in file_list)
+                    {
+                        if (eachFile.Name == selectedItem.Name)
+                        {
+                            file_list.Remove(eachFile);
+                            try
+                            {
+                                System.IO.File.Delete(eachFile.GetFilePath());
+                            }
+                            catch (Exception ex) {
+                                DeleteFileInfoBar.IsOpen = true; 
+                            }
+                            
+                            break;
+                        }
+                    }
+
+                    foreach (Modules.Folder eachFolder in folder_list)
+                    {
+                        if (eachFolder.Name == selectedItem.Name)
+                        {
+                            folder_list.Remove(eachFolder);
+                            try
+                            {
+                                Directory.Delete(eachFolder.GetFolderPath(), true);
+                            }
+                            catch (Exception ex) {
+                                DeleteFileInfoBar.IsOpen = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                this.AddFilesToList();
+                //this.UpdateLayout();
+
+            }
         }
 
         internal void testFolder()

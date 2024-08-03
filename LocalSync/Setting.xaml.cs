@@ -54,6 +54,8 @@ namespace LocalSync
             this.pcNameHeading.Text = resourceMap.GetValue("pcNameHeadingUid/Text", resourceContext).ValueAsString;
             this.savePathFolderHeading.Text = resourceMap.GetValue("savePathFolderHeadingUid/Text", resourceContext).ValueAsString;
             this.LanguageSettingHeading.Text = resourceMap.GetValue("LanguageSettingHeadingUid/Text", resourceContext).ValueAsString;
+            this.PickSavedPath.Content = resourceMap.GetValue("PickSavedPath_Uid/Content", resourceContext).ValueAsString;
+            this.ResetPickSavedPath.Content = resourceMap.GetValue("ResetPickSavedPath_Uid/Content", resourceContext).ValueAsString;
         }
 
         private void LoadSettings()
@@ -99,7 +101,7 @@ namespace LocalSync
             PickSavedPathTextOutput.Text = "Received Files will save to: " + savedFolderPath + "\\LocalSync Transfer";
             App.fileTransferManager.savedFolderPath = savedFolderPath;
             ReceivePage.savedFolderPath = savedFolderPath;
-            SaveSetting("SaveFolderPath", savedFolderPath); 
+            SaveSetting("SaveFolderPath", savedFolderPath);
         }
 
 
