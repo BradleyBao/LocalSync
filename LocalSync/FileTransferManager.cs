@@ -55,21 +55,35 @@ public class FileTransferManager
                 tasks.Remove(completedTask);
             }
 
+            //var transferTask = Task.Run(async () =>
+            //{
+            //    long fileBytesTransferred = 0;
+            //    var relativePath = GetRelativePath(file, rootPaths);
+            //    await TransferFileAsync(targetIp, file, relativePath, fileCount, new Progress<long>(bytes =>
+            //    {
+            //        fileBytesTransferred = bytes;
+            //        bytesTransferred += bytes;
+            //        double overallProgress = (bytesTransferred + filesTransferred) / totalBytes;
+            //        progress.Report(overallProgress);
+            //    }));
+            //    filesTransferred++;
+            //    bytesTransferred += new FileInfo(file).Length - fileBytesTransferred; // Add the remaining bytes of the file
+            //    progress.Report((bytesTransferred + filesTransferred) / totalBytes);
+            //});
+
             var transferTask = Task.Run(async () =>
             {
                 long fileBytesTransferred = 0;
                 var relativePath = GetRelativePath(file, rootPaths);
                 await TransferFileAsync(targetIp, file, relativePath, fileCount, new Progress<long>(bytes =>
                 {
+                    bytesTransferred += bytes - fileBytesTransferred;
                     fileBytesTransferred = bytes;
-                    bytesTransferred += bytes;
-                    double overallProgress = (bytesTransferred + filesTransferred) / totalBytes;
+                    double overallProgress = bytesTransferred / totalBytes;
                     progress.Report(overallProgress);
                 }));
-                filesTransferred++;
-                bytesTransferred += new FileInfo(file).Length - fileBytesTransferred; // Add the remaining bytes of the file
-                progress.Report((bytesTransferred + filesTransferred) / totalBytes);
             });
+
 
             tasks.Add(transferTask);
         }
@@ -118,19 +132,37 @@ public class FileTransferManager
                 await networkStream.WriteAsync(relativePathBytes, 0, relativePathBytes.Length);
 
                 // 发送文件内容
+                //using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                //{
+                //    var buffer = new byte[81920];
+                //    int bytesRead;
+                //    long totalBytesRead = 0;
+
+                //    while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                //    {
+                //        await networkStream.WriteAsync(buffer, 0, bytesRead);
+                //        totalBytesRead += bytesRead;
+                //        progress.Report(totalBytesRead);
+                //    }
+                //}
+
+
                 using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
                     var buffer = new byte[81920];
                     int bytesRead;
                     long totalBytesRead = 0;
+                    long fileLength = fileStream.Length; // 文件总长度
 
                     while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                     {
                         await networkStream.WriteAsync(buffer, 0, bytesRead);
                         totalBytesRead += bytesRead;
+                        double progressPercentage = (double)totalBytesRead / fileLength;
                         progress.Report(totalBytesRead);
                     }
                 }
+
             }
         }
 
@@ -193,10 +225,22 @@ public class FileTransferManager
 
                     Directory.CreateDirectory(Path.GetDirectoryName(targetFilePath));
 
+                    //using (FileStream fileStream = new FileStream(targetFilePath, FileMode.Create, FileAccess.Write))
+                    //{
+                    //    await networkStream.CopyToAsync(fileStream);
+
+                    //}
+
                     using (FileStream fileStream = new FileStream(targetFilePath, FileMode.Create, FileAccess.Write))
                     {
-                        await networkStream.CopyToAsync(fileStream);
+                        var buffer = new byte[81920];
+                        int bytesRead;
+                        while ((bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        {
+                            await fileStream.WriteAsync(buffer, 0, bytesRead);
+                        }
                     }
+
                 }
 
                 Console.WriteLine($"文件已保存到 {Path.Combine(savedFolderPath, "LocalSync Transfer")}");
