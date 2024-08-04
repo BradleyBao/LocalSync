@@ -8,15 +8,15 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="de0d2d91-ec68-48cb-a2cb-630ff49afe5e"
-    Publisher="CN=Tian_Yi_Bao, C=China"
-    Version="0.1.3.0" />
+    Name="TianYi.LocalSync"
+    Publisher="CN=98419A6D-1B04-4EA1-8658-1B5D9D2D15EA"
+    Version="0.2.2.0" />
 
-  <mp:PhoneIdentity PhoneProductId="de0d2d91-ec68-48cb-a2cb-630ff49afe5e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="b62103af-1e57-4a99-8c27-f254a0350cda" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>LocalSync</DisplayName>
-    <PublisherDisplayName>TianYi</PublisherDisplayName>
+    <PublisherDisplayName>Tian Yi</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
