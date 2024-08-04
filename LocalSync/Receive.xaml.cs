@@ -145,7 +145,8 @@ namespace LocalSync
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
             var localSettings = ApplicationData.Current.LocalSettings;
-            string path = (string)localSettings.Values["SaveFolderPath"] + "\\LocalSync Transfer" ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\LocalSync Transfer";
+            string path = this.current_folder_path; 
+            
             Process.Start(new ProcessStartInfo()
             {
                 FileName = path,
