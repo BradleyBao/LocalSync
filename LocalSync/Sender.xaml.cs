@@ -185,7 +185,7 @@ namespace LocalSync
 
         private void SelectTargetDevice_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            receiverDevice.Background = (SolidColorBrush)Application.Current.Resources["SystemControlBackgroundAccentBrush"];
+            receiverDevice.Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundFillColorSecondaryBrush"];
             
         }
 
