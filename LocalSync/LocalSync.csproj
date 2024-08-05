@@ -54,6 +54,7 @@
     <None Remove="Assets\Square44x44Logo.targetsize-256.png" />
     <None Remove="Assets\Wide310x150Logo.scale-400.png" />
     <None Remove="Home.xaml" />
+    <None Remove="Modules\CardDesign.xaml" />
     <None Remove="OtherComputer.xaml" />
     <None Remove="Receive.xaml" />
     <None Remove="Sender.xaml" />
@@ -115,6 +116,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Setting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Modules\CardDesign.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <None Update="PublicSharingPage.xaml">

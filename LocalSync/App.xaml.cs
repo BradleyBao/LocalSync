@@ -88,13 +88,11 @@ namespace LocalSync
             LoadSettings();
             //SetLanguage("zh-CN");
             SetLanguage((string)localSettings.Values["Language"] ?? "en-US");
-            mainWindow = new MainWindow();
-            
-            mainWindow.Activate();
-            
-            //LoadSettings();
 
-            
+            mainWindow = new MainWindow();
+            mainWindow.Activate();
+
+            //LoadSettings();
 
             // Starting Server 
             //await StartServer();

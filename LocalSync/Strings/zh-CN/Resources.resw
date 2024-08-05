@@ -120,11 +120,17 @@
   <data name="ChooseDropDownButtonUid.Content" xml:space="preserve">
     <value>选择文件 / 文件夹</value>
   </data>
+  <data name="ComputerDescription" xml:space="preserve">
+    <value>所有安装了该软件的设备都会自动出现在这里。如果没有，请检查您的防火墙设置。</value>
+  </data>
   <data name="computerSharingNavUid.Content" xml:space="preserve">
     <value>电脑</value>
   </data>
   <data name="ComputersTitle.Text" xml:space="preserve">
     <value>局域网内的电脑</value>
+  </data>
+  <data name="ComputerSubtitle" xml:space="preserve">
+    <value>可以传输到的设备</value>
   </data>
   <data name="DeleteFileInfoBar_Uid.Message" xml:space="preserve">
     <value>无法删除一些文件或文件夹，请手动删除。</value>
@@ -168,6 +174,12 @@
   <data name="ReceiveNavUid.Content" xml:space="preserve">
     <value>接收</value>
   </data>
+  <data name="RecvCardDescription" xml:space="preserve">
+    <value>所有收到的文件和文件夹都将显示在此页面上。传输的文件和文件夹会自动存储在这里。您可以在设置中更改文件夹位置。</value>
+  </data>
+  <data name="RecvCardSubtitle" xml:space="preserve">
+    <value>接受文件目录</value>
+  </data>
   <data name="RecvDeviceNameText.Text" xml:space="preserve">
     <value>未设置</value>
   </data>
@@ -185,6 +197,12 @@
   </data>
   <data name="savePathFolderHeadingUid.Text" xml:space="preserve">
     <value>传输文件保存路径</value>
+  </data>
+  <data name="SendCardDescription" xml:space="preserve">
+    <value>选择要传输到其他设备的文件/文件夹。</value>
+  </data>
+  <data name="SendCardSubtitle" xml:space="preserve">
+    <value>通过局域网传输文件</value>
   </data>
   <data name="SenderNavUid.Content" xml:space="preserve">
     <value>发送</value>

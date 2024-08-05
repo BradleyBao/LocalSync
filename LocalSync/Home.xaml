@@ -6,14 +6,128 @@
     xmlns:local="using:LocalSync"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:l="using:LocalSync.Modules"
+    Background="Transparent"
+    mc:Ignorable="d">
+
+
+    <Page.Resources>
+        <UniformGridLayout x:Key="UniformGridLayout" MinItemWidth="300" MinItemHeight="380"
+                   MinRowSpacing="50" MinColumnSpacing="50"/>
+
+        <DataTemplate x:Key="ListItemTemplate" x:DataType="l:DataType">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon
+                    Grid.RowSpan="1"
+                    Width="25"
+                    Height="25"
+                    Margin="6"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Glyph="{x:Bind dataFileIcon}"
+                    />
+                <TextBlock Grid.Column="1"
+                   Text="{x:Bind Name}"
+                   Style="{ThemeResource BaseTextBlockStyle}"
+                   Margin="12,6,0,0"/>
+            </Grid>
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="CardDesignTemplate" x:DataType="l:CardModel">
+            <Grid>
+                <Border
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="17 20"
+                    Margin="10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <FontIcon
+                            Glyph="{x:Bind iconName}"
+                            FontSize="55"
+                            Margin="0,0,10,0"/>
+                            <StackPanel>
+                                <TextBlock
+                                    Text="{x:Bind Title}"
+                                    FontWeight="Bold"
+                                    FontSize="18"/>
+                                <TextBlock
+                                    Text="{x:Bind Subtitle}"
+                                    FontSize="14"
+                                    Foreground="Gray"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock
+                            Text="{x:Bind Description}"
+                            TextWrapping="Wrap"
+                            Margin="0,5,0,10"/>
+                        <ListView SelectionMode="None" Height="200" CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" Margin="0 10" ItemsSource="{x:Bind Items}" ItemTemplate="{StaticResource ListItemTemplate}"></ListView>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+
 
     <Grid>
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="Auto" />-->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <!--<RowDefinition Height="*" />-->
+            <!--<RowDefinition Height="*" />-->
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="contentSV.Padding" Value="16,0" />
+                        <Setter Target="PageHeader.Margin" Value="16,48,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <TextBlock
             x:Name="TitleTxt"
             x:Uid="HomeTitle"
             Margin="36,24,36,24"
+            Grid.Row="0"
             Style="{StaticResource TitleTextBlockStyle}" />
+
+        <ScrollViewer x:Name="homeScroller"
+                IsVerticalScrollChainingEnabled="False"
+                Grid.Row="1"
+                Padding="0,0,16,0">
+
+            <ItemsRepeater
+                x:Name="cardFunctions"
+                Margin="36 10"
+                Layout="{StaticResource UniformGridLayout}"
+                ItemTemplate="{StaticResource CardDesignTemplate}" />
+
+        </ScrollViewer>
+
+
     </Grid>
 </Page>

@@ -10,7 +10,7 @@
     xmlns:l="using:LocalSync.Modules"
     Loaded="Page_Loaded"
     NavigationCacheMode="Disabled"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="Transparent">
     
     <Page.Resources>
         <!--<DataTemplate x:Key="GridTemplateItem" x:DataType="l:OtherComputersGrid">
