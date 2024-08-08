@@ -89,8 +89,11 @@ namespace LocalSync
             //SetLanguage("zh-CN");
             SetLanguage((string)localSettings.Values["Language"] ?? "en-US");
 
-            mainWindow = new MainWindow();
-            mainWindow.Activate();
+            if(mainWindow == null)
+            {
+                mainWindow = new MainWindow();
+                mainWindow.Activate();
+            }
 
             //LoadSettings();
 
@@ -147,10 +150,27 @@ namespace LocalSync
                 .GetToastContent();
 
             var toastNotification = new ToastNotification(toastContent.GetXml());
+            toastNotification.Activated += NotificationHandle;
 
             // 显示通知
             ToastNotificationManager.CreateToastNotifier().Show(toastNotification);
         }
+
+        private static void NotificationHandle(ToastNotification notification, object args) 
+        {
+            // 获取窗口句柄
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(mainWindow);
+
+            // 如果窗口最小化，将其还原
+            ShowWindow(hwnd, SW_RESTORE);
+            mainWindow.navSwitchTo("Receive");
+            mainWindow?.Activate();
+        }
+
+        const int SW_RESTORE = 9;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow);
 
         public static TEnum GetEnum<TEnum>(string text) where TEnum : struct
         {
