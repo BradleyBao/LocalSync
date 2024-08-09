@@ -120,13 +120,13 @@
 
 
         <ScrollViewer
-    x:Name="TransferFileScroll"
-    Grid.Row="2"
-    Padding="36,0,36,0"
-    IsTabStop="False"
-    UseSystemFocusVisuals="False"
-    VerticalScrollBarVisibility="Auto"
-    VerticalScrollMode="Auto">
+            x:Name="TransferFileScroll"
+            Grid.Row="2"
+            Padding="36,0,36,0"
+            IsTabStop="False"
+            UseSystemFocusVisuals="False"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Auto">
         <Grid
             Padding="36,20,36,0"
             VerticalAlignment="Top">
@@ -138,7 +138,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Margin="50">
+                <Grid Grid.Row="0" Margin="0 20 0 40" Padding="25 20" CornerRadius="10" Background="{ThemeResource CardBackgroundFillColorDefault}">
                     <Grid.RowDefinitions>
                         <!--<RowDefinition Height="Auto" />-->
                         <RowDefinition Height="150" />
@@ -159,22 +159,22 @@
                         </Grid.RowDefinitions>
 
                         <FontIcon
-        x:Name="senderDeviceIcon"
-        Grid.Row="0"
-        Width="100"
-        Height="85"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        FontFamily="{StaticResource SymbolThemeFontFamily}"
-        />
+                            x:Name="senderDeviceIcon"
+                            Grid.Row="0"
+                            Width="100"
+                            Height="85"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            />
 
                         <TextBlock
-        x:Name="senderDeviceName"
-        Grid.Row="1"
+                            x:Name="senderDeviceName"
+                            Grid.Row="1"
         
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        Style="{StaticResource BaseTextBlockStyle}" />
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource BaseTextBlockStyle}" />
 
                     </Grid>
 
@@ -204,22 +204,22 @@
                         </Grid.RowDefinitions>
 
                         <FontIcon
-        x:Name="receiverDeviceIcon"
-        Grid.Row="0"
-        Width="100"
-        Height="85"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        FontFamily="{StaticResource SymbolThemeFontFamily}"
-        />
+                            x:Name="receiverDeviceIcon"
+                            Grid.Row="0"
+                            Width="100"
+                            Height="85"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            />  
 
                         <TextBlock
-        x:Name="receiverDeviceName"
-        x:Uid="RecvDeviceNameText"
-        Grid.Row="1"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        Style="{StaticResource BaseTextBlockStyle}" />
+                            x:Name="receiverDeviceName"
+                            x:Uid="RecvDeviceNameText"
+                            Grid.Row="1"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource BaseTextBlockStyle}" />
 
                     </Grid>
 
@@ -259,11 +259,8 @@
                         </BreadcrumbBar.ItemTemplate>
                     </BreadcrumbBar>
                     <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="0" Grid.Row="1">
-                        <!--<AppBarButton Icon="Add" Label="New"/>-->
-                        <!--<AppBarButton Icon="Download" Label="Download"/>
-                        <AppBarButton Icon="Rename" Label="Rename"/>
-                        <AppBarButton Icon="Share" Label="Share"/>-->
-                        <AppBarButton Icon="Delete" Label="Delete" Click="DeleteMenuFlyoutItem_Click"/>
+                        <AppBarButton Icon="Delete" Label="Remove" x:Name="RemoveSelected_SelectedUploadFiles" x:Uid="RemoveSelected_SelectedUploadFiles_UID" Click="DeleteMenuFlyoutItem_Click"/>
+                        <AppBarButton Icon="Cancel" Label="Remove All" x:Name="RemoveAll_SelectedUploadFiles" x:Uid="RemoveAll_SelectedUploadFiles_UID" Click="DeleteAllMenuFlyoutItem_Click"/>
                         <AppBarSeparator></AppBarSeparator>
                         <CommandBar.SecondaryCommands>
 

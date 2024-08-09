@@ -247,8 +247,6 @@ public class FileTransferManager
                 client.Close();
                 _ = int.TryParse(length, out int sendTimes);
                 App.mainWindow.sendNotification(senderIp, sendTimes); 
-
-
             });
             
         }

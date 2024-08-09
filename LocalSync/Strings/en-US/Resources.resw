@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutSettingHeaderUID.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="ChooseDropDownButtonUid.Content" xml:space="preserve">
     <value>Choose Files / Folders</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="ComputerSubtitle" xml:space="preserve">
     <value>Devices you can transfer to</value>
+  </data>
+  <data name="currentSavedPath" xml:space="preserve">
+    <value>Current File Saved Path: </value>
   </data>
   <data name="DeleteFileInfoBar_Uid.Message" xml:space="preserve">
     <value>Unable to delete some files / folders. Please delete manually. </value>
@@ -153,13 +159,19 @@
   <data name="HomeTitle.Text" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="LanguageSettingHeadingUid.Text" xml:space="preserve">
+  <data name="LanguageSettingHeadingUid.Description" xml:space="preserve">
+    <value>Choose the language of this application</value>
+  </data>
+  <data name="LanguageSettingHeadingUid.Header" xml:space="preserve">
     <value>Language</value>
   </data>
   <data name="OpenContainingFolderUid.Label" xml:space="preserve">
     <value>Open Containing Folder</value>
   </data>
-  <data name="pcNameHeadingUid.Text" xml:space="preserve">
+  <data name="pcNameHeadingUid.Description" xml:space="preserve">
+    <value>Name of your device that will display on other computers in this network</value>
+  </data>
+  <data name="pcNameHeadingUid.Header" xml:space="preserve">
     <value>PC Name</value>
   </data>
   <data name="pickFilesBtnUid.Text" xml:space="preserve">
@@ -192,10 +204,28 @@
   <data name="RecvTitle.Text" xml:space="preserve">
     <value>Received Files</value>
   </data>
+  <data name="RemoveAll_SelectedUploadFiles_UID.Label" xml:space="preserve">
+    <value>Remove All</value>
+  </data>
+  <data name="RemoveSelected_SelectedUploadFiles_UID.Label" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="ResetPickSavedPath_Uid.Content" xml:space="preserve">
     <value>Reset</value>
   </data>
-  <data name="savePathFolderHeadingUid.Text" xml:space="preserve">
+  <data name="ResetSavedPathHint" xml:space="preserve">
+    <value>Set saved path to default</value>
+  </data>
+  <data name="ResetSavedPathHintHeader" xml:space="preserve">
+    <value>Files will now save to: </value>
+  </data>
+  <data name="ResetSavedPathSuccess" xml:space="preserve">
+    <value>Done!</value>
+  </data>
+  <data name="savePathFolderHeadingUid.Description" xml:space="preserve">
+    <value>File Saved Path</value>
+  </data>
+  <data name="savePathFolderHeadingUid.Header" xml:space="preserve">
     <value>Saved Folder Path</value>
   </data>
   <data name="SendCardDescription" xml:space="preserve">
@@ -213,13 +243,28 @@
   <data name="SettingTitle.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Setting_Description" xml:space="preserve">
+    <value>Setup device name, saved path, language, etc...</value>
+  </data>
+  <data name="Setting_Subtitle" xml:space="preserve">
+    <value>Configure Application Options</value>
+  </data>
+  <data name="Setting_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="startBtnUid.Content" xml:space="preserve">
     <value>Start</value>
   </data>
-  <data name="transferInfoBarUID.Message" xml:space="preserve">
+  <data name="transferInfoBarMessageHintAddFile" xml:space="preserve">
+    <value>Adding files by clicking "Choose Files / Folders"</value>
+  </data>
+  <data name="transferInfoBarMessageHintUnselected" xml:space="preserve">
     <value>Please go to "Computers" to setup target device.</value>
   </data>
-  <data name="transferInfoBarUID.Title" xml:space="preserve">
+  <data name="transferInfoBarTitleHintAddFile" xml:space="preserve">
+    <value>Add Files</value>
+  </data>
+  <data name="transferInfoBarTitleHintUnselected" xml:space="preserve">
     <value>Device Not Selected</value>
   </data>
 </root>

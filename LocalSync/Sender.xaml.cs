@@ -221,17 +221,16 @@ namespace LocalSync
                     transferStatus.ShowPaused = true;
                 }
                 receiverDeviceName.Text = App.target_device.deviceName;
-                transferInfoBar.Visibility = Visibility.Collapsed;
-                //this.transferInfoBar.Title = resourceMap.GetValue("transferInfoBarUID/Title", resourceContext).ValueAsString;
-                //this.transferInfoBar.Message = resourceMap.GetValue("transferInfoBarUID/Message", resourceContext).ValueAsString;
+                this.transferInfoBar.Title = resourceMap.GetValue("transferInfoBarTitleHintAddFile", resourceContext).ValueAsString;
+                this.transferInfoBar.Message = resourceMap.GetValue("transferInfoBarMessageHintAddFile", resourceContext).ValueAsString;
             } else
             {
                 startBtn.IsEnabled = false;
                 transferInfoBar.Severity = InfoBarSeverity.Warning; 
                 //transferInfoBar.Title = "Device Not Selected";
                 //transferInfoBar.Message = "Please go to Computers to setup target device. ";
-                this.transferInfoBar.Title = resourceMap.GetValue("transferInfoBarUID/Title", resourceContext).ValueAsString;
-                this.transferInfoBar.Message = resourceMap.GetValue("transferInfoBarUID/Message", resourceContext).ValueAsString;
+                this.transferInfoBar.Title = resourceMap.GetValue("transferInfoBarTitleHintUnselected", resourceContext).ValueAsString;
+                this.transferInfoBar.Message = resourceMap.GetValue("transferInfoBarMessageHintUnselected", resourceContext).ValueAsString;
             }
 
             
@@ -249,7 +248,18 @@ namespace LocalSync
 
         }
 
-        // TODO
+        // Remove All Selected Files from List
+        private void DeleteAllMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            file_send_list.Clear();
+            folder_send_list.Clear();
+            ObservableCollection<LocalSync.Modules.DataType> dataTypeList = new ObservableCollection<LocalSync.Modules.DataType>(
+                file_send_list.Cast<LocalSync.Modules.DataType>().Concat(folder_send_list.Cast<LocalSync.Modules.DataType>())
+                );
+            UnifiedListView.ItemsSource = dataTypeList;
+        }
+
+        // Remove Selected Files from List
         private void DeleteMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             if (UnifiedListView.SelectedItems != null)
@@ -300,7 +310,8 @@ namespace LocalSync
             this.pickFoldersBtn.Text = resourceMap.GetValue("pickFoldersBtnUid/Text", resourceContext).ValueAsString;
             //this.FolderListViewHeading.Text = resourceMap.GetValue("FolderListViewHeadingUid/Text", resourceContext).ValueAsString;
             this.FileListViewHeading.Text = resourceMap.GetValue("RecvFileHeading/Text", resourceContext).ValueAsString;
-            
+            this.RemoveSelected_SelectedUploadFiles.Label = resourceMap.GetValue("RemoveSelected_SelectedUploadFiles_UID/Label", resourceContext).ValueAsString;
+            this.RemoveAll_SelectedUploadFiles.Label = resourceMap.GetValue("RemoveAll_SelectedUploadFiles_UID/Label", resourceContext).ValueAsString;
         }
 
 

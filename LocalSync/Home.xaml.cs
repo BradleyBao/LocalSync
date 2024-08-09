@@ -18,6 +18,7 @@ using LocalSync.Modules;
 using System.Collections.ObjectModel;
 using System.Collections;
 
+
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -129,6 +130,7 @@ namespace LocalSync
                 Subtitle = resourceMap.GetValue("RecvCardSubtitle", resourceContext).ValueAsString,
                 Description = resourceMap.GetValue("RecvCardDescription", resourceContext).ValueAsString,
                 iconName = "\uE704",
+                navPage = "Receive",
                 Items = this.RecvAddFilesToList()
             };
             var senderModel = new CardModel
@@ -137,6 +139,7 @@ namespace LocalSync
                 Subtitle = resourceMap.GetValue("SendCardSubtitle", resourceContext).ValueAsString,
                 Description = resourceMap.GetValue("SendCardDescription", resourceContext).ValueAsString,
                 iconName ="\uEC27",
+                navPage = "Send",
                 Items = this.SendAddFilesToList()
             };
             var computersModel = new CardModel
@@ -145,6 +148,15 @@ namespace LocalSync
                 Subtitle = resourceMap.GetValue("ComputerSubtitle", resourceContext).ValueAsString,
                 Description = resourceMap.GetValue("ComputerDescription", resourceContext).ValueAsString,
                 iconName = "\uF385",
+                navPage = "Computers",
+            };
+            var settingModel = new CardModel
+            {
+                Title = resourceMap.GetValue("Setting_Title", resourceContext).ValueAsString,
+                Subtitle = resourceMap.GetValue("Setting_Subtitle", resourceContext).ValueAsString,
+                Description = resourceMap.GetValue("Setting_Description", resourceContext).ValueAsString,
+                iconName = "\uE713",
+                navPage = "Settings",
             };
 
             ObservableCollection<CardModel> cardModels = new ObservableCollection<CardModel>()
@@ -152,14 +164,37 @@ namespace LocalSync
                 recvModel,
                 senderModel,
                 computersModel,
+                settingModel,
             };
 
             _cards = cardModels;
-            
-            cardFunctions.ItemsSource = cardModels; 
+            cardFunctions.ItemsSource = cardModels;
         }
 
+        private void CardDesignClickEvent(object sender, TappedRoutedEventArgs e)
+        {
+            var border = sender as Border;
 
+            string navPage = border.Name;
+            App.mainWindow.navSwitchTo(navPage); 
+        }
+
+        private void CardDesign_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is Border border)
+            {
+                border.Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundFillColorSecondaryBrush"];
+            }
+        }
+
+        private void CardDesign_PointerExited(object sender, PointerRoutedEventArgs e) 
+        {
+
+            if (sender is Border border)
+            {
+                border.Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundFillColorDefaultBrush"];
+            }
+        }
 
         private void LoadLocalizedStrings()
         {

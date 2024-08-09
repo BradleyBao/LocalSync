@@ -13,11 +13,10 @@
 
     <Page.Resources>
         <UniformGridLayout x:Key="UniformGridLayout" MinItemWidth="300" MinItemHeight="380"
-                   MinRowSpacing="50" MinColumnSpacing="50"/>
+                   MinRowSpacing="40" MinColumnSpacing="30"/>
 
         <DataTemplate x:Key="ListItemTemplate" x:DataType="l:DataType">
             <Grid>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -46,6 +45,10 @@
         <DataTemplate x:Key="CardDesignTemplate" x:DataType="l:CardModel">
             <Grid>
                 <Border
+                    Tapped="CardDesignClickEvent"
+                    Name="{x:Bind navPage.ToString()}"
+                    PointerEntered="CardDesign_PointerEntered"
+                    PointerExited="CardDesign_PointerExited"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="8"
@@ -72,7 +75,7 @@
                             Text="{x:Bind Description}"
                             TextWrapping="Wrap"
                             Margin="0,5,0,10"/>
-                        <ListView SelectionMode="None" Height="200" CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" Margin="0 10" ItemsSource="{x:Bind Items}" ItemTemplate="{StaticResource ListItemTemplate}"></ListView>
+                        <ListView SelectionMode="None" Height="Auto" CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" Margin="0 10" ItemsSource="{x:Bind Items}" ItemTemplate="{StaticResource ListItemTemplate}"></ListView>
                     </StackPanel>
                 </Border>
             </Grid>

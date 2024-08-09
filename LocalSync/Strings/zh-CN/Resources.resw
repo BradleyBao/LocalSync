@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutSettingHeaderUID.Text" xml:space="preserve">
+    <value>关于此应用</value>
+  </data>
   <data name="ChooseDropDownButtonUid.Content" xml:space="preserve">
     <value>选择文件 / 文件夹</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="ComputerSubtitle" xml:space="preserve">
     <value>可以传输到的设备</value>
+  </data>
+  <data name="currentSavedPath" xml:space="preserve">
+    <value>当前文件保存路径：</value>
   </data>
   <data name="DeleteFileInfoBar_Uid.Message" xml:space="preserve">
     <value>无法删除一些文件或文件夹，请手动删除。</value>
@@ -153,13 +159,19 @@
   <data name="HomeTitle.Text" xml:space="preserve">
     <value>主页</value>
   </data>
-  <data name="LanguageSettingHeadingUid.Text" xml:space="preserve">
+  <data name="LanguageSettingHeadingUid.Description" xml:space="preserve">
+    <value>选择此应用语言</value>
+  </data>
+  <data name="LanguageSettingHeadingUid.Header" xml:space="preserve">
     <value>语言</value>
   </data>
   <data name="OpenContainingFolderUid.Label" xml:space="preserve">
     <value>打开该文件夹</value>
   </data>
-  <data name="pcNameHeadingUid.Text" xml:space="preserve">
+  <data name="pcNameHeadingUid.Description" xml:space="preserve">
+    <value>显示在该网络中的本机名称</value>
+  </data>
+  <data name="pcNameHeadingUid.Header" xml:space="preserve">
     <value>此设备名称</value>
   </data>
   <data name="pickFilesBtnUid.Text" xml:space="preserve">
@@ -192,10 +204,28 @@
   <data name="RecvTitle.Text" xml:space="preserve">
     <value>接受的文件</value>
   </data>
+  <data name="RemoveAll_SelectedUploadFiles_UID.Label" xml:space="preserve">
+    <value>移除所有</value>
+  </data>
+  <data name="RemoveSelected_SelectedUploadFiles_UID.Label" xml:space="preserve">
+    <value>移除所选</value>
+  </data>
   <data name="ResetPickSavedPath_Uid.Content" xml:space="preserve">
     <value>重置</value>
   </data>
-  <data name="savePathFolderHeadingUid.Text" xml:space="preserve">
+  <data name="ResetSavedPathHint" xml:space="preserve">
+    <value>将文件保存路径设置成默认</value>
+  </data>
+  <data name="ResetSavedPathHintHeader" xml:space="preserve">
+    <value>文件将会保存至：</value>
+  </data>
+  <data name="ResetSavedPathSuccess" xml:space="preserve">
+    <value>已重置</value>
+  </data>
+  <data name="savePathFolderHeadingUid.Description" xml:space="preserve">
+    <value>文件保存路径</value>
+  </data>
+  <data name="savePathFolderHeadingUid.Header" xml:space="preserve">
     <value>传输文件保存路径</value>
   </data>
   <data name="SendCardDescription" xml:space="preserve">
@@ -213,13 +243,28 @@
   <data name="SettingTitle.Text" xml:space="preserve">
     <value>设置</value>
   </data>
+  <data name="Setting_Description" xml:space="preserve">
+    <value>设置此设备名称，更改文件保存路径，更改应用语言</value>
+  </data>
+  <data name="Setting_Subtitle" xml:space="preserve">
+    <value>更改/设置应用选项</value>
+  </data>
+  <data name="Setting_Title" xml:space="preserve">
+    <value>设置页</value>
+  </data>
   <data name="startBtnUid.Content" xml:space="preserve">
     <value>开始传输</value>
   </data>
-  <data name="transferInfoBarUID.Message" xml:space="preserve">
+  <data name="transferInfoBarMessageHintAddFile" xml:space="preserve">
+    <value>你可以点击 选择文件/文件夹 以添加文件至上传列表</value>
+  </data>
+  <data name="transferInfoBarMessageHintUnselected" xml:space="preserve">
     <value>请前往“电脑”进行设置选择需要传输的电脑</value>
   </data>
-  <data name="transferInfoBarUID.Title" xml:space="preserve">
+  <data name="transferInfoBarTitleHintAddFile" xml:space="preserve">
+    <value>添加文件</value>
+  </data>
+  <data name="transferInfoBarTitleHintUnselected" xml:space="preserve">
     <value>设备未设置</value>
   </data>
 </root>

@@ -23,6 +23,7 @@
                 <NavigationViewItem x:Name="SenderNav" x:Uid="SenderNavUid" Tag="Send" />
                 <NavigationViewItem x:Name="computerSharingNav" x:Uid="computerSharingNavUid" Tag="Computers" />
             </NavigationView.MenuItems>
+
             <Frame x:Name="contentFrame" />
             
         </NavigationView>

@@ -18,6 +18,7 @@ using LocalSync.Helper;
 using Windows.Storage.Pickers;
 using Windows.Storage.AccessCache;
 using LocalSync.Modules;
+using System.Reflection;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -27,6 +28,9 @@ namespace LocalSync
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+    /// 
+
+
     public sealed partial class SettingPage : Page
     {
         public SettingPage()
@@ -41,8 +45,30 @@ namespace LocalSync
             // TODO: Setup Setting
             //TitleTxt.Text = "Setting"; 
             this.LoadLocalizedStrings();
+            InitIcon();
+            VersionInfo.Text = GetAppVersion();
+        }
 
+        private string GetAppVersion()
+        {
+            // 获取应用程序的Assembly版本信息
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            return version != null ? version.ToString() : "Dev";
+        }
 
+        private void InitIcon()
+        {
+            FontIcon deviceNameIcon = new FontIcon();
+            deviceNameIcon.Glyph = "\uE70C";
+            pcNameSettingCard.HeaderIcon = deviceNameIcon;
+
+            FontIcon languageIcon = new FontIcon();
+            languageIcon.Glyph = "\uF2B7";
+            LanguageSettingCard.HeaderIcon = languageIcon;
+
+            FontIcon savedPathIcon = new FontIcon();
+            savedPathIcon.Glyph = "\uE838";
+            savePathFolderSettingCard.HeaderIcon = savedPathIcon;
         }
 
         private void LoadLocalizedStrings()
@@ -51,18 +77,25 @@ namespace LocalSync
 
             var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
             this.TitleTxt.Text = resourceMap.GetValue("SettingTitle/Text", resourceContext).ValueAsString;
-            this.pcNameHeading.Text = resourceMap.GetValue("pcNameHeadingUid/Text", resourceContext).ValueAsString;
-            this.savePathFolderHeading.Text = resourceMap.GetValue("savePathFolderHeadingUid/Text", resourceContext).ValueAsString;
-            this.LanguageSettingHeading.Text = resourceMap.GetValue("LanguageSettingHeadingUid/Text", resourceContext).ValueAsString;
+            this.pcNameSettingCard.Header = resourceMap.GetValue("pcNameHeadingUid/Header", resourceContext).ValueAsString;
+            this.pcNameSettingCard.Description = resourceMap.GetValue("pcNameHeadingUid/Description", resourceContext).ValueAsString;
+            this.savePathFolderSettingCard.Header = resourceMap.GetValue("savePathFolderHeadingUid/Header", resourceContext).ValueAsString;
+            this.savePathFolderSettingCard.Description = resourceMap.GetValue("savePathFolderHeadingUid/Description", resourceContext).ValueAsString;
+            this.LanguageSettingCard.Header = resourceMap.GetValue("LanguageSettingHeadingUid/Header", resourceContext).ValueAsString;
+            this.LanguageSettingCard.Description = resourceMap.GetValue("LanguageSettingHeadingUid/Description", resourceContext).ValueAsString;
             this.PickSavedPath.Content = resourceMap.GetValue("PickSavedPath_Uid/Content", resourceContext).ValueAsString;
             this.ResetPickSavedPath.Content = resourceMap.GetValue("ResetPickSavedPath_Uid/Content", resourceContext).ValueAsString;
+            this.PickSavedPathTextOutput.Header = resourceMap.GetValue("ResetSavedPathHint", resourceContext).ValueAsString; 
+            this.AboutSettingHeader.Text = resourceMap.GetValue("AboutSettingHeaderUID/Text", resourceContext).ValueAsString; 
         }
 
         private void LoadSettings()
         {
+            var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+            var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
             var localSettings = ApplicationData.Current.LocalSettings;
             PcNameTextBox.Text = (string)localSettings.Values["PcName"] ?? string.Empty;
-            PickSavedPathTextOutput.Text = (string)localSettings.Values["SaveFolderPath"]+"\\LocalSync Transfer" ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\LocalSync Transfer";
+            savePathFolderSettingCard.Description = resourceMap.GetValue("currentSavedPath", resourceContext).ValueAsString + (string)localSettings.Values["SaveFolderPath"]+"\\LocalSync Transfer" ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\LocalSync Transfer";
 
             chooseLanguageComboBox((string)localSettings.Values["Language"] ?? "en-US"); 
             
@@ -97,8 +130,11 @@ namespace LocalSync
 
         private void ResetPickSavedPath_Click(object sender, RoutedEventArgs e)
         {
+            var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+            var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
             string savedFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            PickSavedPathTextOutput.Text = "Received Files will save to: " + savedFolderPath + "\\LocalSync Transfer";
+            savePathFolderSettingCard.Description = resourceMap.GetValue("ResetSavedPathHintHeader", resourceContext).ValueAsString + savedFolderPath + "\\LocalSync Transfer";
+            PickSavedPathTextOutput.Header = resourceMap.GetValue("ResetSavedPathSuccess", resourceContext).ValueAsString;
             App.fileTransferManager.savedFolderPath = savedFolderPath;
             ReceivePage.savedFolderPath = savedFolderPath;
             SaveSetting("SaveFolderPath", savedFolderPath);
@@ -128,8 +164,10 @@ namespace LocalSync
             StorageFolder folder = await openPicker.PickSingleFolderAsync();
             if (folder != null)
             {
+                var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+                var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
                 StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", folder);
-                PickSavedPathTextOutput.Text = "Received Files will save to: " + folder.Path + "\\LocalSync Transfer";
+                savePathFolderSettingCard.Description = resourceMap.GetValue("ResetSavedPathHintHeader", resourceContext).ValueAsString + folder.Path + "\\LocalSync Transfer";
                 string newSavedPath = folder.Path;
                 App.fileTransferManager.savedFolderPath = newSavedPath;
                 ReceivePage.savedFolderPath = newSavedPath;
@@ -155,7 +193,7 @@ namespace LocalSync
             //SaveSetting("BroadcastPort", newPort);
         }
 
-        private async void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
             ComboBoxItem selectedLanguage = comboBox.SelectedItem as ComboBoxItem;
@@ -168,38 +206,40 @@ namespace LocalSync
             SaveSetting("Language", languageCode);
             //LanguageComboBox.Text = languageCode;
 
-            string title = "";
-            string content = ""; 
+            //string title = "";
+            //string content = ""; 
 
-            switch (languageCode)
-            {
-                case "en-US":
-                    title = "Restart Required";
-                    content = "Please restart the application to apply the language change."; 
-                    break;
+            //switch (languageCode)
+            //{
+            //    case "en-US":
+            //        title = "Restart Required";
+            //        content = "Please restart the application to apply the language change."; 
+            //        break;
 
-                case "zh-CN":
-                    title = "需要重新启动应用";
-                    content = "部分设置可能需要重新启动应用";
-                    break;
+            //    case "zh-CN":
+            //        title = "需要重新启动应用";
+            //        content = "部分设置可能需要重新启动应用";
+            //        break;
 
-                default:
-                    title = "Restart Required";
-                    content = "Please restart the application to apply the language change, and the language you choosed is not identified? ";
-                    break;
-            }
+            //    default:
+            //        title = "Restart Required";
+            //        content = "Please restart the application to apply the language change, and the language you choosed is not identified? ";
+            //        break;
+            //}
 
-            ContentDialog dialog = new ContentDialog();
+            //ContentDialog dialog = new ContentDialog();
 
-            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
-            dialog.XamlRoot = this.XamlRoot;
-            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            dialog.Title = title;
-            dialog.PrimaryButtonText = "OK";
-            dialog.DefaultButton = ContentDialogButton.Primary;
-            dialog.Content = content;
+            //// XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+            //dialog.XamlRoot = this.XamlRoot;
+            //dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            //dialog.Title = title;
+            //dialog.PrimaryButtonText = "OK";
+            //dialog.DefaultButton = ContentDialogButton.Primary;
+            //dialog.Content = content;
 
-            _ = await dialog.ShowAsync();
+            //_ = await dialog.ShowAsync();
+
+            App.mainWindow.ReloadLanguage();
 
             App.mainWindow.navSwitchTo("Home"); 
 

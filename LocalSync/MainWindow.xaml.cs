@@ -149,11 +149,21 @@ namespace LocalSync
                     Nav.SelectedItem = computerSharingNav;
                     break;
 
+                case "Settings":
+                    contentFrame.Navigate(typeof(SettingPage));
+                    Nav.SelectedItem = Nav.SettingsItem;
+                    break;
+
                 default:
                     contentFrame.Navigate(typeof(HomePage));
                     Nav.SelectedItem = HomeNav;
                     break;
             }
+        }
+
+        public void ReloadLanguage()
+        {
+            LoadLocalizedStrings();
         }
 
 
