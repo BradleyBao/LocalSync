@@ -138,10 +138,10 @@
   <data name="currentSavedPath" xml:space="preserve">
     <value>当前文件保存路径：</value>
   </data>
-  <data name="DeleteFileInfoBar_Uid.Message" xml:space="preserve">
+  <data name="DeleteFileFailed_Message" xml:space="preserve">
     <value>无法删除一些文件或文件夹，请手动删除。</value>
   </data>
-  <data name="DeleteFileInfoBar_Uid.Title" xml:space="preserve">
+  <data name="DeleteFileFailed_Title" xml:space="preserve">
     <value>发生错误</value>
   </data>
   <data name="DeleteFilesUid.Label" xml:space="preserve">
@@ -167,6 +167,15 @@
   </data>
   <data name="OpenContainingFolderUid.Label" xml:space="preserve">
     <value>打开该文件夹</value>
+  </data>
+  <data name="OpenFailedinfoBar_Message" xml:space="preserve">
+    <value>文件可能已经被删除，无法打开该文件</value>
+  </data>
+  <data name="OpenFailedInfoBar_Title" xml:space="preserve">
+    <value>无法打开文件</value>
+  </data>
+  <data name="OpenThisFileUid.Label" xml:space="preserve">
+    <value>打开文件/文件夹</value>
   </data>
   <data name="pcNameHeadingUid.Description" xml:space="preserve">
     <value>显示在该网络中的本机名称</value>

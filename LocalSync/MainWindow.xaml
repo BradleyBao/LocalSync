@@ -15,19 +15,51 @@
     <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
     </StackPanel>-->
-    <Frame x:Name="rootFrame">
-        <NavigationView x:Name="Nav" SelectionChanged="Nav_SelectionChanged" PaneDisplayMode="Auto">
-            <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="HomeNav" x:Uid="HomeNavUid" Icon="Home" Tag="Home" />
-                <NavigationViewItem x:Name="ReceiveNav" x:Uid="ReceiveNavUid" Tag="Receive" />
-                <NavigationViewItem x:Name="SenderNav" x:Uid="SenderNavUid" Tag="Send" />
-                <NavigationViewItem x:Name="computerSharingNav" x:Uid="computerSharingNavUid" Tag="Computers" />
-            </NavigationView.MenuItems>
+    
 
-            <Frame x:Name="contentFrame" />
-            
-        </NavigationView>
-    </Frame>
-    
-    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 自定义标题栏 -->
+        <Grid x:Name="AppTitleBar" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="Assets/LargeTile.scale-200.png" 
+           Width="16" 
+           Height="16" 
+           VerticalAlignment="Center"
+           Margin="15,0,0,0"/>
+            <TextBlock Text="LocalSync" 
+                       VerticalAlignment="Center" 
+                       Margin="15,15,0,15"
+                       FontSize="14"
+                       Grid.Column="1"
+                       />
+        </Grid>
+
+        <!-- 其他内容 -->
+        <Grid Grid.Row="1">
+            <!-- Your content here -->
+            <Frame x:Name="rootFrame">
+                <NavigationView BackRequested="NavView_BackRequested" IsBackEnabled="True" x:Name="Nav" SelectionChanged="Nav_SelectionChanged" PaneDisplayMode="Auto">
+                    <NavigationView.MenuItems>
+                        <NavigationViewItem x:Name="HomeNav" x:Uid="HomeNavUid" Icon="Home" Tag="Home" />
+                        <NavigationViewItem x:Name="ReceiveNav" x:Uid="ReceiveNavUid" Tag="Receive" />
+                        <NavigationViewItem x:Name="SenderNav" x:Uid="SenderNavUid" Tag="Send" />
+                        <NavigationViewItem x:Name="computerSharingNav" x:Uid="computerSharingNavUid" Tag="Computers" />
+                    </NavigationView.MenuItems>
+
+                    <Frame Margin="0 0 0 0" x:Name="contentFrame" />
+
+                </NavigationView>
+            </Frame>
+        </Grid>
+    </Grid>
+
+
 </Window>

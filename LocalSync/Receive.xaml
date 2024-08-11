@@ -8,9 +8,36 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:l="using:LocalSync.Modules"
     mc:Ignorable="d"
+    
     Background="Transparent">
 
     <Page.Resources>
+
+        <DataTemplate x:Key="FolderTemplate" x:DataType="l:ExplorerItem">
+            <TreeViewItem AutomationProperties.Name="{x:Bind Name}"
+            ItemsSource="{x:Bind Children}" IsExpanded="True">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Glyph="&#xE8B7;"/>
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FileTemplate" x:DataType="l:ExplorerItem">
+            <TreeViewItem AutomationProperties.Name="{x:Bind Name}">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Glyph="&#xE8A5;" />
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}"/>
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <l:ExplorerItemTemplateSelector x:Key="ExplorerItemTemplateSelector"
+        FolderTemplate="{StaticResource FolderTemplate}"
+        FileTemplate="{StaticResource FileTemplate}" />
+
         <DataTemplate x:Key="FileListView" x:DataType="l:DataType">
             <Grid>
                 <Grid.ContextFlyout>
@@ -79,8 +106,8 @@
             Margin="36,24,36,24"
             Style="{StaticResource TitleTextBlockStyle}" />
         <InfoBar
-            x:Name="DeleteFileInfoBar"
-            x:Uid="DeleteFileInfoBar_Uid"
+            x:Name="FileManagerInfoBar"
+            x:Uid="FileManagerInfoBar_Uid"
             Grid.Row="1"
             IsOpen="False"
             IsIconVisible="True"
@@ -89,69 +116,96 @@
             Title="Error"
             Message="Unable to delete some files / folders. " />
 
-        <ScrollViewer
-            x:Name="FileManager"
-            Grid.Row="2"
-            Padding="36,0,36,0"
-            IsTabStop="False"
-            UseSystemFocusVisuals="False"
-            VerticalScrollBarVisibility="Auto"
-            VerticalScrollMode="Auto">
-
-            <Border x:Name="UploadBanner" Background="Transparent" AllowDrop="True" Drop="UploadFiles" DragOver="UploadFiles_DragOver" DragEnter="UploadFiles_Enter">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <BreadcrumbBar x:Name="Address_Bar" Grid.Column="0" Grid.Row="0">
-                        <BreadcrumbBar.ItemTemplate>
-                            <DataTemplate x:DataType="l:Folder">
-                                <BreadcrumbBarItem Content="{Binding}" AutomationProperties.Name="{Binding folder_name}">
-                                    <BreadcrumbBarItem.ContentTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding folder_name}" />
-                                        </DataTemplate>
-                                    </BreadcrumbBarItem.ContentTemplate>
-                                </BreadcrumbBarItem>
-                            </DataTemplate>
-                        </BreadcrumbBar.ItemTemplate>
-                    </BreadcrumbBar>
-                    <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="0" Grid.Row="1">
-                        <AppBarButton x:Name="OpenContainingFolder" x:Uid="OpenContainingFolderUid" Click="OpenContainingFolder_Click" Label="Open Containing Folder"/>
-                        <AppBarButton Icon="Download" Label="Download"/>
-                        <AppBarButton Icon="Rename" Label="Rename"/>
-                        <AppBarButton Icon="Share" Label="Share"/>
-                        <AppBarButton x:Name="DeleteFiles" x:Uid="DeleteFilesUid" Icon="Delete" Click="DeleteItem_Click" Label="Delete"/>
-                        <AppBarSeparator></AppBarSeparator>
-                        <CommandBar.SecondaryCommands>
-
-                            <AppBarButton Icon="List" Label="List View"></AppBarButton>
-                            <AppBarButton x:Name="GridViewBtn" Icon="View" Label="Grid View"></AppBarButton>
-
-                            <AppBarButton Icon="Setting" Label="Settings">
-                                <AppBarButton.KeyboardAccelerators>
-                                    <KeyboardAccelerator Modifiers="Control" Key="I" />
-                                </AppBarButton.KeyboardAccelerators>
-                            </AppBarButton>
-                        </CommandBar.SecondaryCommands>
-                    </CommandBar>
-
-                    <TextBlock Grid.Column="0" Grid.Row="2" x:Uid="RecvFileHeading"
-    x:Name="FileListViewHeading"
-    Margin="6,12,0,12"
-    Style="{StaticResource SubheaderTextBlockStyle}" />
-
-                    <ListView Grid.Column="0" Grid.Row="3" ItemTemplate="{StaticResource FileListView}" x:Name="FileList" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Extended" />
 
 
-                </Grid>
-            </Border>
+        <Border Grid.Row="2" x:Name="UploadBanner" Background="Transparent" AllowDrop="True" Drop="UploadFiles" DragOver="UploadFiles_DragOver" DragEnter="UploadFiles_Enter">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <BreadcrumbBar x:Name="Address_Bar" Grid.Column="0" Grid.Row="0">
+                    <BreadcrumbBar.ItemTemplate>
+                        <DataTemplate x:DataType="l:Folder">
+                            <BreadcrumbBarItem Content="{Binding}" AutomationProperties.Name="{Binding folder_name}">
+                                <BreadcrumbBarItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding folder_name}" />
+                                    </DataTemplate>
+                                </BreadcrumbBarItem.ContentTemplate>
+                            </BreadcrumbBarItem>
+                        </DataTemplate>
+                    </BreadcrumbBar.ItemTemplate>
+                </BreadcrumbBar>
 
-            
-        </ScrollViewer>
-        
+
+                <TextBlock Grid.Row="1" x:Uid="RecvFileHeading"
+                x:Name="FileListViewHeading"
+                Margin="35,12,0,12"
+                Style="{StaticResource SubheaderTextBlockStyle}" />
+
+                <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1" Grid.Row="2">
+                    <AppBarButton x:Name="OpenContainingFolder" x:Uid="OpenContainingFolderUid" Click="OpenContainingFolder_Click" Label="Open Containing Folder"/>
+                    <AppBarButton x:Name="OpenThisFile" x:Uid="OpenThisFileUid" Icon="OpenFile" Label="Open File" Click="OpenThisFile_Click"/>
+                    <AppBarButton Icon="Rename" Label="Rename"/>
+                    <AppBarButton Icon="Share" Label="Share"/>
+                    <AppBarButton x:Name="DeleteFiles" x:Uid="DeleteFilesUid" Icon="Delete" Click="DeleteItem_Click" Label="Delete"/>
+                    <AppBarSeparator></AppBarSeparator>
+                    <CommandBar.SecondaryCommands>
+
+                        <AppBarButton Icon="List" Label="List View"></AppBarButton>
+                        <AppBarButton x:Name="GridViewBtn" Icon="View" Label="Grid View"></AppBarButton>
+
+                        <AppBarButton Icon="Setting" Label="Settings">
+                            <AppBarButton.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="I" />
+                            </AppBarButton.KeyboardAccelerators>
+                        </AppBarButton>
+                    </CommandBar.SecondaryCommands>
+                </CommandBar>
+
+                <ScrollViewer
+                    x:Name="ExplorerView"
+                    Grid.Column="0" Grid.Row="3"
+                    Padding="36,0,36,0"
+                    IsTabStop="False"
+                    UseSystemFocusVisuals="False"
+                    Width="300"
+                    VerticalScrollBarVisibility="Auto"
+                    VerticalScrollMode="Auto">
+
+                    <TreeView x:Name="FileTrees"  ItemInvoked="FileTrees_ItemInvoked"
+                    ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}"/>
+
+
+                </ScrollViewer>
+
+                <ScrollViewer
+                x:Name="FileManager"
+                Grid.Column="1" Grid.Row="3"
+                Padding="36,0,36,0"
+                IsTabStop="False"
+                UseSystemFocusVisuals="False"
+                VerticalScrollBarVisibility="Auto"
+                VerticalScrollMode="Auto">
+
+
+                    <ListView DoubleTapped="FileList_DoubleTapped" Tapped="FileList_ItemClick"  ItemTemplate="{StaticResource FileListView}" x:Name="FileList" CanDragItems="True" CanReorderItems="True" AllowDrop="True" SelectionMode="Extended" />
+
+
+                </ScrollViewer>
+
+
+
+
+            </Grid>
+        </Border>
+
     </Grid>
 </Page>

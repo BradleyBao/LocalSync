@@ -19,6 +19,7 @@ using Windows.Storage.Pickers;
 using Windows.Storage.AccessCache;
 using LocalSync.Modules;
 using System.Reflection;
+using Windows.ApplicationModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -52,8 +53,8 @@ namespace LocalSync
         private string GetAppVersion()
         {
             // 获取应用程序的Assembly版本信息
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            return version != null ? version.ToString() : "Dev";
+            var version = Package.Current.Id.Version;
+            return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
         }
 
         private void InitIcon()

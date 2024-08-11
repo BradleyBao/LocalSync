@@ -116,7 +116,7 @@
             x:Uid="HomeTitle"
             Margin="36,24,36,24"
             Grid.Row="0"
-            Style="{StaticResource TitleTextBlockStyle}" />
+            Style="{StaticResource TitleLargeTextBlockStyle}" />
 
         <ScrollViewer x:Name="homeScroller"
                 IsVerticalScrollChainingEnabled="False"
@@ -125,7 +125,7 @@
 
             <ItemsRepeater
                 x:Name="cardFunctions"
-                Margin="36 10"
+                Margin="25 10"
                 Layout="{StaticResource UniformGridLayout}"
                 ItemTemplate="{StaticResource CardDesignTemplate}" />
 

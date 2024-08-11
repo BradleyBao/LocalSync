@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -24,12 +24,20 @@ namespace LocalSync
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
+    /// 
+
     public sealed partial class MainWindow : Window
     {
         int fileCountIndex = 0;
+        private Dictionary<Type, NavigationViewItem> pageToMenuItemMap = new Dictionary<Type, NavigationViewItem>();
         public MainWindow()
         {
             this.InitializeComponent();
+            contentFrame.Navigated += OnNavigated;
+            pageToMenuItemMap.Add(typeof(HomePage), HomeNav);
+            pageToMenuItemMap.Add(typeof(ReceivePage), ReceiveNav);
+            pageToMenuItemMap.Add(typeof(SenderPage), SenderNav);
+            pageToMenuItemMap.Add(typeof(OtherComputerSharing), computerSharingNav);
             this.InitUI();
             this.InitEvent();
         }
@@ -41,11 +49,38 @@ namespace LocalSync
             // Page Starting at Homepage as default
             contentFrame.Navigate(typeof(HomePage));
             Nav.SelectedItem = HomeNav;
+            SetTitleBar(AppTitleBar); 
             this.Title = "Local Sync";
             this.AppWindow.SetIcon("Assets/WindowLogoscale-128.ico");
             WindowHelper.TrackWindow(this);
             this.SetupTitleBar();
 
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+
+            var itemType = e.SourcePageType;
+
+            if (itemType == typeof(SettingPage))
+            {
+                Nav.SelectedItem = Nav.SettingsItem;
+            }
+            else if (pageToMenuItemMap.TryGetValue(itemType, out var menuItem))
+            {
+                Nav.SelectedItem = menuItem;
+            }
+
+            // Check is go back available
+            Nav.IsBackEnabled = contentFrame.CanGoBack;
+        }
+
+        private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (contentFrame.CanGoBack)
+            {
+                contentFrame.GoBack();
+            }
         }
 
         public void setStatusNav(bool status)
@@ -55,16 +90,18 @@ namespace LocalSync
 
         private void SetupTitleBar()
         {
+            ExtendsContentIntoTitleBar = true;
             //ThemeHelper.Initialize();
             ElementTheme currentTheme = ThemeHelper.ActualTheme;
             Window window = WindowHelper._activeWindows[0];
-            if (currentTheme == ElementTheme.Dark)
-            {
-                TitleBarHelper.SetForegroundColor(window, Colors.Black);
-            }
-            else if (currentTheme == ElementTheme.Light) {
-                TitleBarHelper.SetForegroundColor(window, Colors.White);
-            }
+            //if (currentTheme == ElementTheme.Dark)
+            //{
+            //    //TitleBarHelper.SetForegroundColor(window, Colors.Black);
+            //}
+            //else if (currentTheme == ElementTheme.Light) {
+            //    //TitleBarHelper.SetForegroundColor(window, Colors.White);
+            //}
+            TitleBarHelper.SetForegroundColor(window, Colors.Transparent);
         }
 
         private void LoadLocalizedStrings()
@@ -131,35 +168,40 @@ namespace LocalSync
             {
                 case "Home":
                     contentFrame.Navigate(typeof(HomePage));
-                    Nav.SelectedItem = HomeNav;
+                    //Nav.SelectedItem = HomeNav;
                     break;
 
                 case "Receive":
                     contentFrame.Navigate(typeof(ReceivePage));
-                    Nav.SelectedItem = ReceiveNav;
+                    //Nav.SelectedItem = ReceiveNav;
                     break;
 
                 case "Send":
                     contentFrame.Navigate(typeof(SenderPage));
-                    Nav.SelectedItem = SenderNav;
+                    //Nav.SelectedItem = SenderNav;
                     break;
 
                 case "Computers":
                     contentFrame.Navigate(typeof(OtherComputerSharing));
-                    Nav.SelectedItem = computerSharingNav;
+                    //Nav.SelectedItem = computerSharingNav;
                     break;
 
                 case "Settings":
                     contentFrame.Navigate(typeof(SettingPage));
-                    Nav.SelectedItem = Nav.SettingsItem;
+                    //Nav.SelectedItem = Nav.SettingsItem;
                     break;
 
                 default:
                     contentFrame.Navigate(typeof(HomePage));
-                    Nav.SelectedItem = HomeNav;
+                    //Nav.SelectedItem = HomeNav;
                     break;
             }
         }
+
+        //public void navSwitchTo(Type page)
+        //{
+        //    contentFrame.Navigate(page);
+        //}
 
         public void ReloadLanguage()
         {

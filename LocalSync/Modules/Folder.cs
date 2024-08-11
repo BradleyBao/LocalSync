@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace LocalSync.Modules
         private string folder_path;
         //private List<LocalSync.Modules.File> File_List; 
         Folder father_directory;
+        public ObservableCollection<Folder> Children { get; set; } = new ObservableCollection<Folder>();
         public string Name => folder_name;
         public string dataType => "folder";
         public string dataFileIcon => "\uE8B7";

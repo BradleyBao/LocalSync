@@ -138,10 +138,10 @@
   <data name="currentSavedPath" xml:space="preserve">
     <value>Current File Saved Path: </value>
   </data>
-  <data name="DeleteFileInfoBar_Uid.Message" xml:space="preserve">
+  <data name="DeleteFileFailed_Message" xml:space="preserve">
     <value>Unable to delete some files / folders. Please delete manually. </value>
   </data>
-  <data name="DeleteFileInfoBar_Uid.Title" xml:space="preserve">
+  <data name="DeleteFileFailed_Title" xml:space="preserve">
     <value>Error</value>
   </data>
   <data name="DeleteFilesUid.Label" xml:space="preserve">
@@ -167,6 +167,15 @@
   </data>
   <data name="OpenContainingFolderUid.Label" xml:space="preserve">
     <value>Open Containing Folder</value>
+  </data>
+  <data name="OpenFailedinfoBar_Message" xml:space="preserve">
+    <value>File may be already deleted, unable to open this file</value>
+  </data>
+  <data name="OpenFailedInfoBar_Title" xml:space="preserve">
+    <value>Unable to open</value>
+  </data>
+  <data name="OpenThisFileUid.Label" xml:space="preserve">
+    <value>Open File / Folder</value>
   </data>
   <data name="pcNameHeadingUid.Description" xml:space="preserve">
     <value>Name of your device that will display on other computers in this network</value>
