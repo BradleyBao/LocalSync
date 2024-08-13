@@ -150,7 +150,11 @@ namespace LocalSync
             fileCountIndex++;
             if (fileCountIndex == total)
             {
-                App.SendNotificationWithActivation("File Transfer", $"{fileCountIndex} Files have been transferred from {device_ip}", "Receive");
+                var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+                var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+                string title = resourceMap.GetValue("FileSentSuccessTitleNotification", resourceContext).ValueAsString;
+                string msg = resourceMap.GetValue("FileSentSuccessMessageNotification", resourceContext).ValueAsString;
+                App.SendNotificationWithActivation(title, $"{fileCountIndex} {msg} {device_ip}", "Receive");
                 fileCountIndex = 0;
             }
             
@@ -158,7 +162,11 @@ namespace LocalSync
 
         public void senderNotification()
         {
-            App.SendNotificationWithActivation("Success!", "File Sent Successfully", "Send");
+            var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+            var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+            string title = resourceMap.GetValue("FileSenderSuccessTitleNotification", resourceContext).ValueAsString;
+            string msg = resourceMap.GetValue("FileSenderSuccessMessageNotification", resourceContext).ValueAsString;
+            App.SendNotificationWithActivation(title, msg, "Send");
             
         }
 

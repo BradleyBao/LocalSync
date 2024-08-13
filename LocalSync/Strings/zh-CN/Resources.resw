@@ -150,6 +150,18 @@
   <data name="FileListViewHeadingUid.Text" xml:space="preserve">
     <value>文件</value>
   </data>
+  <data name="FileSenderSuccessMessageNotification" xml:space="preserve">
+    <value>文件成功发送</value>
+  </data>
+  <data name="FileSenderSuccessTitleNotification" xml:space="preserve">
+    <value>发送成功！</value>
+  </data>
+  <data name="FileSentSuccessMessageNotification" xml:space="preserve">
+    <value>个文件被传输，来自设备</value>
+  </data>
+  <data name="FileSentSuccessTitleNotification" xml:space="preserve">
+    <value>文件传输</value>
+  </data>
   <data name="FolderListViewHeadingUid.Text" xml:space="preserve">
     <value>文件夹</value>
   </data>

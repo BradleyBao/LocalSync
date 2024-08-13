@@ -71,6 +71,16 @@ namespace LocalSync
             this.UnhandledException += App_UnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            ToastNotificationManagerCompat.OnActivated += toastArgs =>
+            {
+                // 获取窗口句柄
+                var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(mainWindow);
+
+                // 如果窗口最小化，将其还原
+                ShowWindow(hwnd, SW_RESTORE);
+                mainWindow?.Activate();
+                mainWindow.navSwitchTo("Receive");
+            };
         }
 
         /// <summary>
@@ -95,10 +105,6 @@ namespace LocalSync
                 mainWindow.Activate();
             }
 
-            //LoadSettings();
-
-            // Starting Server 
-            //await StartServer();
             await Task.WhenAll(StartServer(), StartUdpDiscovery(), StartTransferFileReponsder());
         }
 
@@ -153,7 +159,8 @@ namespace LocalSync
             toastNotification.Activated += NotificationHandle;
 
             // 显示通知
-            ToastNotificationManager.CreateToastNotifier().Show(toastNotification);
+            ToastNotificationManagerCompat.CreateToastNotifier().Show(toastNotification);
+            
         }
 
         private static void NotificationHandle(ToastNotification notification, object args) 
@@ -163,8 +170,8 @@ namespace LocalSync
 
             // 如果窗口最小化，将其还原
             ShowWindow(hwnd, SW_RESTORE);
-            mainWindow.navSwitchTo("Receive");
             mainWindow?.Activate();
+            mainWindow.navSwitchTo("Receive");
         }
 
         const int SW_RESTORE = 9;

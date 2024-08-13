@@ -150,6 +150,18 @@
   <data name="FileListViewHeadingUid.Text" xml:space="preserve">
     <value>Files</value>
   </data>
+  <data name="FileSenderSuccessMessageNotification" xml:space="preserve">
+    <value>File Sent Successfully</value>
+  </data>
+  <data name="FileSenderSuccessTitleNotification" xml:space="preserve">
+    <value>Success!</value>
+  </data>
+  <data name="FileSentSuccessMessageNotification" xml:space="preserve">
+    <value>Files have been transferred from</value>
+  </data>
+  <data name="FileSentSuccessTitleNotification" xml:space="preserve">
+    <value>File Transfer</value>
+  </data>
   <data name="FolderListViewHeadingUid.Text" xml:space="preserve">
     <value>Folders</value>
   </data>

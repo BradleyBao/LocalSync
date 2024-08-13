@@ -320,9 +320,9 @@ namespace LocalSync
         internal void SetupIcon()
         {
             // Grid View Icon
-            FontIcon gridView_Icon = new FontIcon();
-            gridView_Icon.Glyph = "\uF0E2";
-            GridViewBtn.Icon = gridView_Icon;
+            //FontIcon gridView_Icon = new FontIcon();
+            //gridView_Icon.Glyph = "\uF0E2";
+            //GridViewBtn.Icon = gridView_Icon;
 
             FontIcon openFolder_Icon = new FontIcon(); 
             openFolder_Icon.Glyph = "\uE838";

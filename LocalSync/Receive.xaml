@@ -153,11 +153,9 @@
                 <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1" Grid.Row="2">
                     <AppBarButton x:Name="OpenContainingFolder" x:Uid="OpenContainingFolderUid" Click="OpenContainingFolder_Click" Label="Open Containing Folder"/>
                     <AppBarButton x:Name="OpenThisFile" x:Uid="OpenThisFileUid" Icon="OpenFile" Label="Open File" Click="OpenThisFile_Click"/>
-                    <AppBarButton Icon="Rename" Label="Rename"/>
-                    <AppBarButton Icon="Share" Label="Share"/>
                     <AppBarButton x:Name="DeleteFiles" x:Uid="DeleteFilesUid" Icon="Delete" Click="DeleteItem_Click" Label="Delete"/>
                     <AppBarSeparator></AppBarSeparator>
-                    <CommandBar.SecondaryCommands>
+                    <!--<CommandBar.SecondaryCommands>
 
                         <AppBarButton Icon="List" Label="List View"></AppBarButton>
                         <AppBarButton x:Name="GridViewBtn" Icon="View" Label="Grid View"></AppBarButton>
@@ -167,7 +165,7 @@
                                 <KeyboardAccelerator Modifiers="Control" Key="I" />
                             </AppBarButton.KeyboardAccelerators>
                         </AppBarButton>
-                    </CommandBar.SecondaryCommands>
+                    </CommandBar.SecondaryCommands>-->
                 </CommandBar>
 
                 <ScrollViewer
