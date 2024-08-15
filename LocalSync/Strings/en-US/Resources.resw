@@ -162,6 +162,12 @@
   <data name="FileSentSuccessTitleNotification" xml:space="preserve">
     <value>File Transfer</value>
   </data>
+  <data name="FireWallDeniedMsg" xml:space="preserve">
+    <value>The application failed to configure firewall rules successfully, which may result in blocked network communication. Please check the firewall settings and ensure that this application is allowed through the firewall. Please go to "Windows Defender Firewall with Advanced Security" -&gt; "Inbound Rules"; change the property of "action" in LocalSync to "Allow the connection". </value>
+  </data>
+  <data name="FireWallDeniedTitle" xml:space="preserve">
+    <value>Firewall Configuration Error</value>
+  </data>
   <data name="FolderListViewHeadingUid.Text" xml:space="preserve">
     <value>Folders</value>
   </data>
@@ -176,6 +182,27 @@
   </data>
   <data name="LanguageSettingHeadingUid.Header" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="NetworkAccessDeniedMsg" xml:space="preserve">
+    <value>This device is not connected to any network; please check your network setting.</value>
+  </data>
+  <data name="NetworkAccessDeniedTitle" xml:space="preserve">
+    <value>No Internet Connection</value>
+  </data>
+  <data name="NetworkAccessInternetMsg" xml:space="preserve">
+    <value>This device has successfully connected to the network.</value>
+  </data>
+  <data name="NetworkAccessInternetTitle" xml:space="preserve">
+    <value>Device Connected</value>
+  </data>
+  <data name="NetworkAccessLocalMsg" xml:space="preserve">
+    <value>All devices in this network will be shown here.</value>
+  </data>
+  <data name="NetworkAccessLocalTitle" xml:space="preserve">
+    <value>Connected to Local Network</value>
   </data>
   <data name="OpenContainingFolderUid.Label" xml:space="preserve">
     <value>Open Containing Folder</value>

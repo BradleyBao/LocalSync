@@ -88,6 +88,7 @@
         <Grid.RowDefinitions>
             <!--<RowDefinition Height="Auto" />-->
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
@@ -115,11 +116,28 @@
             Margin="36,24,36,24"
             Grid.Row="0"
             Style="{StaticResource TitleTextBlockStyle}" />
-        
+
+        <InfoBar
+            x:Name="networkDeviceInfoBar"
+            x:Uid="networkDeviceInfoBarUid"
+            Grid.Row="1"
+            Margin="30 0 30 0"
+            IsOpen="False"
+            IsIconVisible="True"
+            IsClosable="True">
+
+            <InfoBar.ActionButton>
+                <HyperlinkButton x:Name="networkDeviceInfoBarLearnmore" Visibility="Collapsed" Content="Learn more" />
+            </InfoBar.ActionButton>
+
+
+        </InfoBar>
+
         <ScrollViewer
             x:Name="ComputerManager"
-            Grid.Row="1"
+            Grid.Row="2"
             Padding="36,0,36,0"
+            Margin="0 30 0 0"
             IsTabStop="False"
             UseSystemFocusVisuals="False"
             VerticalScrollBarVisibility="Auto"

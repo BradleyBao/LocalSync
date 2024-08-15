@@ -162,6 +162,12 @@
   <data name="FileSentSuccessTitleNotification" xml:space="preserve">
     <value>文件传输</value>
   </data>
+  <data name="FireWallDeniedMsg" xml:space="preserve">
+    <value>应用程序未能成功配置防火墙规则，可能会导致网络通信被阻止。请检查防火墙设置并确保允许此应用程序通过防火墙。请前往 “高级Windows防火墙设置”找到“入站规则”的LocalSync中将其属性更改为“允许连接”。</value>
+  </data>
+  <data name="FireWallDeniedTitle" xml:space="preserve">
+    <value>防火墙配置错误</value>
+  </data>
   <data name="FolderListViewHeadingUid.Text" xml:space="preserve">
     <value>文件夹</value>
   </data>
@@ -176,6 +182,27 @@
   </data>
   <data name="LanguageSettingHeadingUid.Header" xml:space="preserve">
     <value>语言</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>了解更多</value>
+  </data>
+  <data name="NetworkAccessDeniedMsg" xml:space="preserve">
+    <value>设备没有连接到任何网络，请检查你的网络设置。</value>
+  </data>
+  <data name="NetworkAccessDeniedTitle" xml:space="preserve">
+    <value>无网络连接</value>
+  </data>
+  <data name="NetworkAccessInternetMsg" xml:space="preserve">
+    <value>设备已成功连接到网络。</value>
+  </data>
+  <data name="NetworkAccessInternetTitle" xml:space="preserve">
+    <value>设备已连接</value>
+  </data>
+  <data name="NetworkAccessLocalMsg" xml:space="preserve">
+    <value>所有连接到此网络的设备将在此显示。</value>
+  </data>
+  <data name="NetworkAccessLocalTitle" xml:space="preserve">
+    <value>已连接到本地网络</value>
   </data>
   <data name="OpenContainingFolderUid.Label" xml:space="preserve">
     <value>打开该文件夹</value>

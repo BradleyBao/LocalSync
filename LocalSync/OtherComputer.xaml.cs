@@ -16,6 +16,7 @@ using Windows.Foundation.Collections;
 using Microsoft.UI.Dispatching;
 using System.Threading.Tasks;
 using LocalSync.Modules;
+using Windows.Networking.Connectivity;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -37,8 +38,77 @@ namespace LocalSync
         {
             this.InitializeComponent();
             this.InitUI();
+
+            CheckNetworkStatus();
+
             this.SearchForServer();
             //this.RefreshDeviceList();
+        }
+
+        internal void CheckNetworkStatus()
+        {
+            var profile = NetworkInformation.GetInternetConnectionProfile();
+            if (profile == null || profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.None)
+            {
+                // 无网络
+                DisplayNoNetworkAccessMessage();
+            } else if(profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.LocalAccess || 
+                profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.ConstrainedInternetAccess)
+            {
+                // 无法访问
+                LocalAccessNetworkAccessMessage();
+            } else if (profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
+            {
+                InternetAccessNetworkAccessMessage();
+            }
+            CheckFireWall();
+        }
+
+        internal void CheckFireWall()
+        {
+            if (!App.IsFirewallRuleAllowed())
+            {
+                networkDeviceInfoBar.IsOpen = true;
+                networkDeviceInfoBar.Severity = InfoBarSeverity.Error;
+                networkDeviceInfoBarLearnmore.Visibility = Visibility.Visible;
+                var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+                var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+                networkDeviceInfoBar.Title = resourceMap.GetValue("FireWallDeniedTitle", resourceContext).ValueAsString;
+                networkDeviceInfoBar.Message = resourceMap.GetValue("FireWallDeniedMsg", resourceContext).ValueAsString;
+                networkDeviceInfoBarLearnmore.Content = resourceMap.GetValue("LearnMore", resourceContext).ValueAsString;
+                networkDeviceInfoBarLearnmore.NavigateUri = new Uri("https://www.tianyibrad.com");
+            }
+        }
+
+        internal void DisplayNoNetworkAccessMessage()
+        {
+            networkDeviceInfoBar.IsOpen = true;
+            networkDeviceInfoBar.Severity = InfoBarSeverity.Error;
+            var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+            var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+            networkDeviceInfoBar.Title = resourceMap.GetValue("NetworkAccessDeniedTitle", resourceContext).ValueAsString;
+            networkDeviceInfoBar.Message = resourceMap.GetValue("NetworkAccessDeniedMsg", resourceContext).ValueAsString;
+        }
+
+        internal void LocalAccessNetworkAccessMessage()
+        {
+            networkDeviceInfoBar.IsOpen = true;
+            networkDeviceInfoBar.Severity = InfoBarSeverity.Informational;
+            var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+            var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+            networkDeviceInfoBar.Title = resourceMap.GetValue("NetworkAccessLocalTitle", resourceContext).ValueAsString;
+            networkDeviceInfoBar.Message = resourceMap.GetValue("NetworkAccessLocalMsg", resourceContext).ValueAsString;
+
+        }
+
+        internal void InternetAccessNetworkAccessMessage()
+        {
+            networkDeviceInfoBar.IsOpen = true;
+            networkDeviceInfoBar.Severity = InfoBarSeverity.Success;
+            var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+            var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+            networkDeviceInfoBar.Title = resourceMap.GetValue("NetworkAccessInternetTitle", resourceContext).ValueAsString;
+            networkDeviceInfoBar.Message = resourceMap.GetValue("NetworkAccessInternetMsg", resourceContext).ValueAsString;
         }
 
         internal void InitUI()

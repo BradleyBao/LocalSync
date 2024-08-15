@@ -38,6 +38,7 @@ using Windows.Storage;
 using System.Globalization;
 using Windows.Globalization;
 using Windows.ApplicationModel.Resources.Core;
+using NetFwTypeLib;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -60,6 +61,12 @@ namespace LocalSync
         public static bool transferring_files = false;
         public static MainWindow mainWindow;
         public static ResourceContext resourceContext;
+
+        // IMPORTANT SETTING 
+        public static int discoveryPort = 8888;
+        public static int hostPort = 8080;
+        public static int transferPort = 5000;
+        public static int testPort = 9999;
 
 
         public static ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
@@ -116,6 +123,26 @@ namespace LocalSync
             //var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
 
 
+        }
+
+        public static bool IsFirewallRuleAllowed()
+        {
+            string appPath = Process.GetCurrentProcess().MainModule.FileName;
+            INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
+
+            foreach (INetFwRule rule in firewallPolicy.Rules)
+            {
+                // 检查规则是否与您的应用程序相关
+                if (rule.ApplicationName != null && rule.ApplicationName.Equals(appPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    // 检查规则是否允许流量
+                    if (rule.Action == NET_FW_ACTION_.NET_FW_ACTION_ALLOW)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         static async Task StartServer()
