@@ -163,7 +163,7 @@
     <value>文件传输</value>
   </data>
   <data name="FireWallDeniedMsg" xml:space="preserve">
-    <value>应用程序未能成功配置防火墙规则，可能会导致网络通信被阻止。请检查防火墙设置并确保允许此应用程序通过防火墙。请前往 “高级Windows防火墙设置”找到“入站规则”的LocalSync中将其属性更改为“允许连接”。</value>
+    <value>应用程序未能成功配置防火墙规则，可能会导致网络通信被阻止。请检查防火墙设置并确保允许此应用程序通过防火墙。</value>
   </data>
   <data name="FireWallDeniedTitle" xml:space="preserve">
     <value>防火墙配置错误</value>
@@ -314,5 +314,8 @@
   </data>
   <data name="transferInfoBarTitleHintUnselected" xml:space="preserve">
     <value>设备未设置</value>
+  </data>
+  <data name="url_of_firewallerror_msg" xml:space="preserve">
+    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/FirewallIssueCN.md</value>
   </data>
 </root>

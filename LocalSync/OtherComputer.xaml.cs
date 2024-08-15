@@ -76,7 +76,8 @@ namespace LocalSync
                 networkDeviceInfoBar.Title = resourceMap.GetValue("FireWallDeniedTitle", resourceContext).ValueAsString;
                 networkDeviceInfoBar.Message = resourceMap.GetValue("FireWallDeniedMsg", resourceContext).ValueAsString;
                 networkDeviceInfoBarLearnmore.Content = resourceMap.GetValue("LearnMore", resourceContext).ValueAsString;
-                networkDeviceInfoBarLearnmore.NavigateUri = new Uri("https://www.tianyibrad.com");
+                string url_of_firewallerror_msg = resourceMap.GetValue("url_of_firewallerror_msg", resourceContext).ValueAsString;
+                networkDeviceInfoBarLearnmore.NavigateUri = new Uri(url_of_firewallerror_msg);
             }
         }
 

@@ -163,7 +163,7 @@
     <value>File Transfer</value>
   </data>
   <data name="FireWallDeniedMsg" xml:space="preserve">
-    <value>The application failed to configure firewall rules successfully, which may result in blocked network communication. Please check the firewall settings and ensure that this application is allowed through the firewall. Please go to "Windows Defender Firewall with Advanced Security" -&gt; "Inbound Rules"; change the property of "action" in LocalSync to "Allow the connection". </value>
+    <value>The application failed to configure firewall rules successfully, and the devices in this network cannot be found. Please check the firewall settings and ensure that this application is allowed through the firewall.</value>
   </data>
   <data name="FireWallDeniedTitle" xml:space="preserve">
     <value>Firewall Configuration Error</value>
@@ -314,5 +314,8 @@
   </data>
   <data name="transferInfoBarTitleHintUnselected" xml:space="preserve">
     <value>Device Not Selected</value>
+  </data>
+  <data name="url_of_firewallerror_msg" xml:space="preserve">
+    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/FirewallIssue.md</value>
   </data>
 </root>
