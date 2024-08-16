@@ -20,6 +20,7 @@ using Windows.Storage.AccessCache;
 using LocalSync.Modules;
 using System.Reflection;
 using Windows.ApplicationModel;
+using Windows.Globalization;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -47,6 +48,7 @@ namespace LocalSync
             //TitleTxt.Text = "Setting"; 
             this.LoadLocalizedStrings();
             InitIcon();
+            ClickSavePortChangeSettingCardBtn.IsEnabled = false;
             VersionInfo.Text = GetAppVersion();
         }
 
@@ -70,6 +72,11 @@ namespace LocalSync
             FontIcon savedPathIcon = new FontIcon();
             savedPathIcon.Glyph = "\uE838";
             savePathFolderSettingCard.HeaderIcon = savedPathIcon;
+
+            FontIcon allPortIcon = new FontIcon();
+            allPortIcon.Glyph = "\uEA37";
+            allPortSettingCard.HeaderIcon = allPortIcon;
+
         }
 
         private void LoadLocalizedStrings()
@@ -88,6 +95,29 @@ namespace LocalSync
             this.ResetPickSavedPath.Content = resourceMap.GetValue("ResetPickSavedPath_Uid/Content", resourceContext).ValueAsString;
             this.PickSavedPathTextOutput.Header = resourceMap.GetValue("ResetSavedPathHint", resourceContext).ValueAsString; 
             this.AboutSettingHeader.Text = resourceMap.GetValue("AboutSettingHeaderUID/Text", resourceContext).ValueAsString; 
+            this.GeneralSettingHeader.Text = resourceMap.GetValue("GeneralSettingHeaderUid/Text", resourceContext).ValueAsString; 
+            this.allPortSettingCard.Header = resourceMap.GetValue("allPortSettingCardUid/Header", resourceContext).ValueAsString; 
+            this.allPortSettingCard.Description = resourceMap.GetValue("allPortSettingCardUid/Description", resourceContext).ValueAsString; 
+            this.portChangeWarning.Title = resourceMap.GetValue("portChangeWarningUid/Title", resourceContext).ValueAsString; 
+            this.AdvancedSettingHeader.Text = resourceMap.GetValue("AdvancedSettingHeaderUid/Text", resourceContext).ValueAsString; 
+            this.serverPortSettingCard.Header = resourceMap.GetValue("serverPortSettingCardUid/Header", resourceContext).ValueAsString; 
+            this.serverPortSettingCard.Description = resourceMap.GetValue("serverPortSettingCardUid/Description", resourceContext).ValueAsString;
+            this.discoveryPortSettingCard.Header = resourceMap.GetValue("discoveryPortSettingCardUid/Header", resourceContext).ValueAsString;
+            this.discoveryPortSettingCard.Description = resourceMap.GetValue("discoveryPortSettingCardUid/Description", resourceContext).ValueAsString;
+            this.transferPortSettingCard.Header = resourceMap.GetValue("transferPortSettingCardUid/Header", resourceContext).ValueAsString;
+            this.transferPortSettingCard.Description = resourceMap.GetValue("transferPortSettingCardUid/Description", resourceContext).ValueAsString;
+            this.ClickSavePortChangeSettingCard.Header = resourceMap.GetValue("ClickSavePortChangeSettingCardUid/Header", resourceContext).ValueAsString;
+            this.ClickSavePortChangeSettingCard.Description = resourceMap.GetValue("ClickSavePortChangeSettingCardUid/Description", resourceContext).ValueAsString;
+            portChangeWarningHyperLink.Content = resourceMap.GetValue("LearnMore", resourceContext).ValueAsString;
+            string url_of_firewallerror_msg = resourceMap.GetValue("url_of_change_port_setting_msg", resourceContext).ValueAsString;
+            portChangeWarningHyperLink.NavigateUri = new Uri(url_of_firewallerror_msg);
+
+            this.ClickSavePortChangeSettingCardBtn.Content = resourceMap.GetValue("Save", resourceContext).ValueAsString;
+            this.ResetSavePortChangeSettingCardBtn.Content = resourceMap.GetValue("Reset", resourceContext).ValueAsString;
+
+            this.ResetSavePortChangeSettingCard.Header = resourceMap.GetValue("ResetSavePortChangeSettingCardUid/Header", resourceContext).ValueAsString;
+            this.ResetSavePortChangeSettingCard.Description = resourceMap.GetValue("ResetSavePortChangeSettingCardUid/Description", resourceContext).ValueAsString;
+
         }
 
         private void LoadSettings()
@@ -97,8 +127,17 @@ namespace LocalSync
             var localSettings = ApplicationData.Current.LocalSettings;
             PcNameTextBox.Text = (string)localSettings.Values["PcName"] ?? string.Empty;
             savePathFolderSettingCard.Description = resourceMap.GetValue("currentSavedPath", resourceContext).ValueAsString + (string)localSettings.Values["SaveFolderPath"]+"\\LocalSync Transfer" ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\LocalSync Transfer";
+            
+            int.TryParse((string)localSettings.Values["ServerPort"] ?? "8080", out int serverPort);
+            serverPortTxt.Value = (double)serverPort;
 
-            chooseLanguageComboBox((string)localSettings.Values["Language"] ?? "en-US"); 
+            int.TryParse((string)localSettings.Values["DiscoverPort"] ?? "8888", out int discoverPort);
+            discoveryPortTxt.Value = (double)discoverPort;
+
+            int.TryParse((string)localSettings.Values["TransferPort"] ?? "5000", out int transferPort);
+            transferPortTxt.Value = (double)transferPort;
+
+            chooseLanguageComboBox((string)localSettings.Values["Language"] ?? "auto"); 
             
             
             //ReceiveFilePortTextBox.Text = (string)localSettings.Values["ReceiveFilePort"] ?? "DefaultPort";
@@ -139,6 +178,51 @@ namespace LocalSync
             App.fileTransferManager.savedFolderPath = savedFolderPath;
             ReceivePage.savedFolderPath = savedFolderPath;
             SaveSetting("SaveFolderPath", savedFolderPath);
+        }
+
+        private void ClickSavePort_Click(object sender, RoutedEventArgs e)
+        {
+            string serverPort = ((int)serverPortTxt.Value).ToString();
+            string discoverPort = ((int)discoveryPortTxt.Value).ToString(); 
+            string transferPort = ((int)transferPortTxt.Value).ToString();
+
+            SaveSetting("ServerPort", serverPort);
+            SaveSetting("DiscoverPort", discoverPort);
+            SaveSetting("TransferPort", transferPort);
+
+            ClickSavePortChangeSettingCardBtn.IsEnabled = false;
+            App.hostPort = (int)serverPortTxt.Value;
+            App.discoveryPort = (int)discoveryPortTxt.Value;
+            App.transferPort = (int)transferPortTxt.Value;
+            ClickSavePortDialog();
+        }
+
+        private void ResetSavePort_Click(Object sender, RoutedEventArgs e)
+        {
+            SaveSetting("ServerPort", "8080");
+            SaveSetting("DiscoverPort", "8888");
+            SaveSetting("TransferPort", "5000");
+            serverPortTxt.Value = 8080;
+            discoveryPortTxt.Value = 8888;
+            transferPortTxt.Value = 5000;
+            ClickSavePortDialog();
+        }
+
+        internal async void ClickSavePortDialog()
+        {
+            var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+            var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+            ContentDialog dialog = new ContentDialog();
+
+            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+            dialog.XamlRoot = this.XamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Title = resourceMap.GetValue("ClickSavePortDialogTitle", resourceContext).ValueAsString; ;
+            dialog.PrimaryButtonText = "OK";
+            dialog.DefaultButton = ContentDialogButton.Primary;
+            dialog.Content = resourceMap.GetValue("ClickSavePortDialogContent", resourceContext).ValueAsString; ;
+
+            _ = await dialog.ShowAsync();
         }
 
 
@@ -207,49 +291,79 @@ namespace LocalSync
             SaveSetting("Language", languageCode);
             //LanguageComboBox.Text = languageCode;
 
-            //string title = "";
-            //string content = ""; 
-
-            //switch (languageCode)
-            //{
-            //    case "en-US":
-            //        title = "Restart Required";
-            //        content = "Please restart the application to apply the language change."; 
-            //        break;
-
-            //    case "zh-CN":
-            //        title = "需要重新启动应用";
-            //        content = "部分设置可能需要重新启动应用";
-            //        break;
-
-            //    default:
-            //        title = "Restart Required";
-            //        content = "Please restart the application to apply the language change, and the language you choosed is not identified? ";
-            //        break;
-            //}
-
-            //ContentDialog dialog = new ContentDialog();
-
-            //// XamlRoot must be set in the case of a ContentDialog running in a Desktop app
-            //dialog.XamlRoot = this.XamlRoot;
-            //dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            //dialog.Title = title;
-            //dialog.PrimaryButtonText = "OK";
-            //dialog.DefaultButton = ContentDialogButton.Primary;
-            //dialog.Content = content;
-
-            //_ = await dialog.ShowAsync();
-
             App.mainWindow.ReloadLanguage();
-
             App.mainWindow.navSwitchTo("Home"); 
-
         }
 
         private void SaveSetting(string key, string value)
         {
             var localSettings = ApplicationData.Current.LocalSettings;
             localSettings.Values[key] = value;
+        }
+
+        internal bool IsPortNotChanged()
+        {
+            if (serverPortTxt != null && discoveryPortTxt != null && transferPortTxt != null)
+            {
+                var localSettings = ApplicationData.Current.LocalSettings;
+                string serverPortValue = (string)localSettings.Values["ServerPort"] ?? "8080";
+                string serverPortValueNew = ((int)serverPortTxt.Value).ToString();
+
+                string discoverPortValue = (string)localSettings.Values["DiscoverPort"] ?? "8888";
+                string discoverPortValueNew = ((int)discoveryPortTxt.Value).ToString();
+
+                string transferFileportValue = (string)localSettings.Values["TransferPort"] ?? "5000";
+                string transferFileportValueNew = ((int)transferPortTxt.Value).ToString();
+
+                return serverPortValue.Equals(serverPortValueNew) && discoverPortValue.Equals(discoverPortValueNew) && transferFileportValue.Equals(transferFileportValueNew);
+            }
+            return true;
+        }
+
+        internal bool IsPortConflicted()
+        {
+            if (serverPortTxt != null && discoveryPortTxt != null && transferPortTxt != null)
+            {
+                string serverPortValueNew = ((int)serverPortTxt.Value).ToString();
+                string discoverPortValueNew = ((int)discoveryPortTxt.Value).ToString();
+                string transferFileportValueNew = ((int)transferPortTxt.Value).ToString();
+                return serverPortValueNew.Equals(discoverPortValueNew) && discoverPortValueNew.Equals(transferFileportValueNew); 
+            }
+            return false;
+        }
+
+        internal void PortTxtChange()
+        {
+            var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
+            var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
+
+            if (!IsPortNotChanged() && ClickSavePortChangeSettingCardBtn != null)
+            {
+                ClickSavePortChangeSettingCardBtn.IsEnabled = true;
+                portChangeWarning.Title = resourceMap.GetValue("PortUserChangedTitle", resourceContext).ValueAsString;
+                portChangeWarning.Severity = InfoBarSeverity.Informational;
+                portChangeWarningHyperLink.Visibility = Visibility.Collapsed;
+            } else
+            {
+                portChangeWarning.Title = resourceMap.GetValue("portChangeWarningUid/Title", resourceContext).ValueAsString;
+                portChangeWarning.Severity = InfoBarSeverity.Warning;
+                portChangeWarningHyperLink.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void serverPortTxt_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            PortTxtChange();
+        }
+
+        private void discoveryPortTxt_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            PortTxtChange();
+        }
+
+        private void transferPortTxt_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            PortTxtChange();
         }
     }
 }

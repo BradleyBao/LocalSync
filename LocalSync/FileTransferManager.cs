@@ -166,7 +166,7 @@ public class FileTransferManager
             }
         }
 
-        Console.WriteLine($"文件 {filePath} 已传输到 {targetIp}。");
+        // File Transfered 
         App.transferring_files = false;
     }
 
@@ -242,8 +242,7 @@ public class FileTransferManager
                     }
 
                 }
-
-                Console.WriteLine($"文件已保存到 {Path.Combine(savedFolderPath, "LocalSync Transfer")}");
+                // File Transfered 
                 client.Close();
                 _ = int.TryParse(length, out int sendTimes);
                 App.mainWindow.sendNotification(senderIp, sendTimes); 

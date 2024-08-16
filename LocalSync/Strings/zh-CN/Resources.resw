@@ -120,8 +120,29 @@
   <data name="AboutSettingHeaderUID.Text" xml:space="preserve">
     <value>关于此应用</value>
   </data>
+  <data name="AdvancedSettingHeaderUid.Text" xml:space="preserve">
+    <value>高级设置</value>
+  </data>
+  <data name="allPortSettingCardUid.Description" xml:space="preserve">
+    <value>配置应用程序使用的网络端口。请确保所选端口未被其他应用程序占用。</value>
+  </data>
+  <data name="allPortSettingCardUid.Header" xml:space="preserve">
+    <value>端口</value>
+  </data>
   <data name="ChooseDropDownButtonUid.Content" xml:space="preserve">
     <value>选择文件 / 文件夹</value>
+  </data>
+  <data name="ClickSavePortChangeSettingCardUid.Description" xml:space="preserve">
+    <value>保存更改的端口</value>
+  </data>
+  <data name="ClickSavePortChangeSettingCardUid.Header" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="ClickSavePortDialogContent" xml:space="preserve">
+    <value>需要重新启动才能应用更改</value>
+  </data>
+  <data name="ClickSavePortDialogTitle" xml:space="preserve">
+    <value>需要重新启动应用</value>
   </data>
   <data name="ComputerDescription" xml:space="preserve">
     <value>所有安装了该软件的设备都会自动出现在这里。如果没有，请检查您的防火墙设置。</value>
@@ -147,6 +168,12 @@
   <data name="DeleteFilesUid.Label" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="discoveryPortSettingCardUid.Description" xml:space="preserve">
+    <value>该端口负责在此网络中搜索设备。默认端口为8888。</value>
+  </data>
+  <data name="discoveryPortSettingCardUid.Header" xml:space="preserve">
+    <value>搜索端口</value>
+  </data>
   <data name="FileListViewHeadingUid.Text" xml:space="preserve">
     <value>文件</value>
   </data>
@@ -170,6 +197,9 @@
   </data>
   <data name="FolderListViewHeadingUid.Text" xml:space="preserve">
     <value>文件夹</value>
+  </data>
+  <data name="GeneralSettingHeaderUid.Text" xml:space="preserve">
+    <value>通用设置</value>
   </data>
   <data name="HomeNavUid.Content" xml:space="preserve">
     <value>主页</value>
@@ -231,6 +261,12 @@
   <data name="PickSavedPath_Uid.Content" xml:space="preserve">
     <value>选择文件保存路径</value>
   </data>
+  <data name="portChangeWarningUid.Title" xml:space="preserve">
+    <value>更改端口设置警告</value>
+  </data>
+  <data name="PortUserChangedTitle" xml:space="preserve">
+    <value>端口已更改，点击“保存”来保存你的更改</value>
+  </data>
   <data name="ReceiveNavUid.Content" xml:space="preserve">
     <value>接收</value>
   </data>
@@ -258,6 +294,9 @@
   <data name="RemoveSelected_SelectedUploadFiles_UID.Label" xml:space="preserve">
     <value>移除所选</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
   <data name="ResetPickSavedPath_Uid.Content" xml:space="preserve">
     <value>重置</value>
   </data>
@@ -269,6 +308,15 @@
   </data>
   <data name="ResetSavedPathSuccess" xml:space="preserve">
     <value>已重置</value>
+  </data>
+  <data name="ResetSavePortChangeSettingCardUid.Description" xml:space="preserve">
+    <value>重置更改的端口</value>
+  </data>
+  <data name="ResetSavePortChangeSettingCardUid.Header" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
   </data>
   <data name="savePathFolderHeadingUid.Description" xml:space="preserve">
     <value>文件保存路径</value>
@@ -287,6 +335,12 @@
   </data>
   <data name="SenderTitle.Text" xml:space="preserve">
     <value>传输文件</value>
+  </data>
+  <data name="serverPortSettingCardUid.Description" xml:space="preserve">
+    <value>该端口负责在此网络中回应搜索设备。默认端口为8080。</value>
+  </data>
+  <data name="serverPortSettingCardUid.Header" xml:space="preserve">
+    <value>主机端口</value>
   </data>
   <data name="SettingTitle.Text" xml:space="preserve">
     <value>设置</value>
@@ -314,6 +368,15 @@
   </data>
   <data name="transferInfoBarTitleHintUnselected" xml:space="preserve">
     <value>设备未设置</value>
+  </data>
+  <data name="transferPortSettingCardUid.Description" xml:space="preserve">
+    <value>该端口负责在此网络中传输文件。默认端口为5000。</value>
+  </data>
+  <data name="transferPortSettingCardUid.Header" xml:space="preserve">
+    <value>传输端口</value>
+  </data>
+  <data name="url_of_change_port_setting_msg" xml:space="preserve">
+    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/ChangePortSetting_CN.md</value>
   </data>
   <data name="url_of_firewallerror_msg" xml:space="preserve">
     <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/FirewallIssueCN.md</value>

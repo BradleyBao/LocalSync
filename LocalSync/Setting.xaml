@@ -80,6 +80,11 @@
 
                 <!-- PC Name Section -->
 
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                   x:Name="GeneralSettingHeader"
+                   x:Uid="GeneralSettingHeaderUid"
+                   Text="General" />
+                
                 <controls:SettingsCard x:Name="pcNameSettingCard"
                                        x:Uid="pcNameHeadingUid"
                                Description="pcNameSettingCard Description"
@@ -98,30 +103,12 @@
                        >
 
                     <ComboBox x:Name="LanguageComboBox" SelectionChanged="LanguageComboBox_SelectionChanged">
+                        <ComboBoxItem x:Name="AutoLanguageComboItem" Content="Auto" Tag="auto" />
                         <ComboBoxItem Content="English" Tag="en-US" />
                         <ComboBoxItem Content="中文" Tag="zh-CN" />
                     </ComboBox>
 
                 </controls:SettingsCard>
-
-                <!-- File Save Path Section -->
-                <!--<controls:SettingsCard 
-                       
-                       Description="pcNameSettingCard Description"
-                       Header="Saved Folder Path"
-                       >
-
-                    
-
-                </controls:SettingsCard>
-
-                
-                --><!--<TextBlock Text="Saved Folder Path" x:Uid="savePathFolderHeadingUid" x:Name="savePathFolderHeading" Style ="{StaticResource SettingsSectionHeaderTextBlockStyle }"/>--><!--
-                <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
-                    
-                    
-                    <TextBlock  TextWrapping="Wrap" Padding="20,5,0,0"/>
-                </StackPanel>-->
 
                 <controls:SettingsExpander Description="Saved Folder Setting Expander"
                                            Header="Saved Folder Path"
@@ -138,6 +125,82 @@
                     </controls:SettingsExpander.Items>
                 </controls:SettingsExpander>
 
+
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                   x:Name="AdvancedSettingHeader"
+                   x:Uid="AdvancedSettingHeaderUid"
+                   Text="Advanced" />
+
+                <controls:SettingsExpander Description="Port Settings"
+                           Header="App Port"
+                           x:Name="allPortSettingCard"
+                           x:Uid="allPortSettingCardUid">
+
+                    <controls:SettingsExpander.ItemsHeader>
+                        <InfoBar 
+                            x:Name="portChangeWarning"
+                            x:Uid="portChangeWarningUid"
+                              IsClosable="True"
+                              IsOpen="True"
+                              Severity="Warning">
+                            <InfoBar.ActionButton>
+                                <HyperlinkButton x:Name="portChangeWarningHyperLink" Content="Learn more" />
+                            </InfoBar.ActionButton>
+                        </InfoBar>
+                    </controls:SettingsExpander.ItemsHeader>
+
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard x:Name="serverPortSettingCard"
+                               x:Uid="serverPortSettingCardUid"
+                               Header="Server Port"
+                               >
+                            <NumberBox x:Name="serverPortTxt"
+                                Value="8080"
+                                ValueChanged="serverPortTxt_ValueChanged"
+                                Minimum="0"
+                                Maximum="65535"
+                                SpinButtonPlacementMode="Hidden" />
+                        </controls:SettingsCard>
+
+                        <controls:SettingsCard x:Name="discoveryPortSettingCard"
+                           x:Uid="discoveryPortSettingCardUid"
+                           Header="Discovery Port"
+                           >
+                            <NumberBox x:Name="discoveryPortTxt"
+                                Value="8888"
+                                Minimum="0"
+                                Maximum="65535"
+                                ValueChanged="discoveryPortTxt_ValueChanged"
+                                SpinButtonPlacementMode="Hidden" />
+                        </controls:SettingsCard>
+
+                        <controls:SettingsCard x:Name="transferPortSettingCard"
+                           x:Uid="transferPortSettingCardUid"
+                           Header="Transfer Port"
+                            >
+                            <NumberBox x:Name="transferPortTxt"
+                                Value="5000"
+                                Minimum="0"
+                                Maximum="65535"
+                                ValueChanged="transferPortTxt_ValueChanged"
+                                SpinButtonPlacementMode="Hidden" />
+                        </controls:SettingsCard>
+
+
+                        <controls:SettingsCard x:Name="ClickSavePortChangeSettingCard" x:Uid="ClickSavePortChangeSettingCardUid">
+                            <Button x:Name="ClickSavePortChangeSettingCardBtn" x:Uid="ClickSavePortChangeSettingCardBtnUid" Content="Save"
+                                Click="ClickSavePort_Click" Margin="0,0,0,10" Style="{StaticResource AccentButtonStyle}"/>
+                        </controls:SettingsCard>
+
+                        <controls:SettingsCard x:Name="ResetSavePortChangeSettingCard" x:Uid="ResetSavePortChangeSettingCardUid">
+                            <Button x:Name="ResetSavePortChangeSettingCardBtn" x:Uid="ResetSavePortChangeSettingCardBtnUid" Content="Reset"
+                                Click="ResetSavePort_Click" Margin="0,0,0,10" Style="{StaticResource DefaultButtonStyle}"/>
+                        </controls:SettingsCard>
+
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+                
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                            x:Name="AboutSettingHeader"
                            x:Uid="AboutSettingHeaderUID"

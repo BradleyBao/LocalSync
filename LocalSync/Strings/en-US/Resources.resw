@@ -120,8 +120,29 @@
   <data name="AboutSettingHeaderUID.Text" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="AdvancedSettingHeaderUid.Text" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="allPortSettingCardUid.Description" xml:space="preserve">
+    <value>Configure the network port used by the application. Ensure the selected port is not occupied by other applications to avoid conflicts.</value>
+  </data>
+  <data name="allPortSettingCardUid.Header" xml:space="preserve">
+    <value>Ports</value>
+  </data>
   <data name="ChooseDropDownButtonUid.Content" xml:space="preserve">
     <value>Choose Files / Folders</value>
+  </data>
+  <data name="ClickSavePortChangeSettingCardUid.Description" xml:space="preserve">
+    <value>Save Modified Ports</value>
+  </data>
+  <data name="ClickSavePortChangeSettingCardUid.Header" xml:space="preserve">
+    <value>Save Change</value>
+  </data>
+  <data name="ClickSavePortDialogContent" xml:space="preserve">
+    <value>A restart is required to apply changes.</value>
+  </data>
+  <data name="ClickSavePortDialogTitle" xml:space="preserve">
+    <value>Restart Required</value>
   </data>
   <data name="ComputerDescription" xml:space="preserve">
     <value>All devices with this software installed will automatically appear here. If not, please check your firewall settings.</value>
@@ -147,6 +168,12 @@
   <data name="DeleteFilesUid.Label" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="discoveryPortSettingCardUid.Description" xml:space="preserve">
+    <value>This port is responsible for discovering devices within this network. Default port is 8888.</value>
+  </data>
+  <data name="discoveryPortSettingCardUid.Header" xml:space="preserve">
+    <value>Discovery Port</value>
+  </data>
   <data name="FileListViewHeadingUid.Text" xml:space="preserve">
     <value>Files</value>
   </data>
@@ -170,6 +197,9 @@
   </data>
   <data name="FolderListViewHeadingUid.Text" xml:space="preserve">
     <value>Folders</value>
+  </data>
+  <data name="GeneralSettingHeaderUid.Text" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="HomeNavUid.Content" xml:space="preserve">
     <value>Home Page</value>
@@ -231,6 +261,12 @@
   <data name="PickSavedPath_Uid.Content" xml:space="preserve">
     <value>Choose Files' Save Path</value>
   </data>
+  <data name="portChangeWarningUid.Title" xml:space="preserve">
+    <value>Port Setting Warning</value>
+  </data>
+  <data name="PortUserChangedTitle" xml:space="preserve">
+    <value>Ports changed, click "save" to save your change. </value>
+  </data>
   <data name="ReceiveNavUid.Content" xml:space="preserve">
     <value>Received Page</value>
   </data>
@@ -258,6 +294,9 @@
   <data name="RemoveSelected_SelectedUploadFiles_UID.Label" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
   <data name="ResetPickSavedPath_Uid.Content" xml:space="preserve">
     <value>Reset</value>
   </data>
@@ -269,6 +308,15 @@
   </data>
   <data name="ResetSavedPathSuccess" xml:space="preserve">
     <value>Done!</value>
+  </data>
+  <data name="ResetSavePortChangeSettingCardUid.Description" xml:space="preserve">
+    <value>Reset Ports</value>
+  </data>
+  <data name="ResetSavePortChangeSettingCardUid.Header" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="savePathFolderHeadingUid.Description" xml:space="preserve">
     <value>File Saved Path</value>
@@ -287,6 +335,12 @@
   </data>
   <data name="SenderTitle.Text" xml:space="preserve">
     <value>Transfer Files</value>
+  </data>
+  <data name="serverPortSettingCardUid.Description" xml:space="preserve">
+    <value>This port is responsible for responding discovering devices within this network. Default port is 8080. </value>
+  </data>
+  <data name="serverPortSettingCardUid.Header" xml:space="preserve">
+    <value>Host Port</value>
   </data>
   <data name="SettingTitle.Text" xml:space="preserve">
     <value>Settings</value>
@@ -314,6 +368,15 @@
   </data>
   <data name="transferInfoBarTitleHintUnselected" xml:space="preserve">
     <value>Device Not Selected</value>
+  </data>
+  <data name="transferPortSettingCardUid.Description" xml:space="preserve">
+    <value>This port is responsible for transferring files within this network. Default port is 5000.</value>
+  </data>
+  <data name="transferPortSettingCardUid.Header" xml:space="preserve">
+    <value>Transfer Port</value>
+  </data>
+  <data name="url_of_change_port_setting_msg" xml:space="preserve">
+    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/ChangePortSetting.md</value>
   </data>
   <data name="url_of_firewallerror_msg" xml:space="preserve">
     <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/FirewallIssue.md</value>

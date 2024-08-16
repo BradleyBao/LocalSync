@@ -70,7 +70,7 @@ namespace LocalSync
 
 
         public static ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-        public static FileTransferManager fileTransferManager = new FileTransferManager(tcpPort: 5000, maxConcurrentTransfers: 5);
+        public static FileTransferManager fileTransferManager;
 
         public App()
         {
@@ -103,8 +103,7 @@ namespace LocalSync
                 return;
             }
             LoadSettings();
-            //SetLanguage("zh-CN");
-            SetLanguage((string)localSettings.Values["Language"] ?? "en-US");
+            SetLanguage((string)localSettings.Values["Language"] ?? GetAppLanguage());
 
             if(mainWindow == null)
             {
@@ -115,10 +114,33 @@ namespace LocalSync
             await Task.WhenAll(StartServer(), StartUdpDiscovery(), StartTransferFileReponsder());
         }
 
+        public static string GetAppLanguage()
+        {
+            // Supported Language List
+            var supportedLanguages = new List<string> { "en-US", "zh-CN" };
+
+            // First Choice Language of this device 
+            var systemLanguage = ApplicationLanguages.Languages[0];
+
+            // Is supported? 
+            if (supportedLanguages.Contains(systemLanguage))
+            {
+                return systemLanguage; // Return if supported
+            }
+            else
+            {
+                // If not supported
+                return "en-US"; // Return English
+            }
+        }
+
         public static void SetLanguage(string languageCode)
         {
             resourceContext = new Windows.ApplicationModel.Resources.Core.ResourceContext();
-            //resourceContext.QualifierValues["Language"] = "en-US";
+            if (languageCode.Equals("auto"))
+            {
+                languageCode = GetAppLanguage(); 
+            }
             resourceContext.QualifierValues["Language"] = languageCode;
             //var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
 
@@ -147,13 +169,9 @@ namespace LocalSync
 
         static async Task StartServer()
         {
-            int port = 8080;
-            int discoveryPort = 8888;
             string serverNickname = (string)localSettings.Values["PcName"] ?? System.Net.Dns.GetHostName();
-
-            _server = new TcpFileServer(port, discoveryPort, serverNickname);
+            _server = new TcpFileServer(App.hostPort, App.discoveryPort, serverNickname);
             
-
             if (!_server.IsRunning())
             {
                 // Start Running Server if it is not started
@@ -164,13 +182,13 @@ namespace LocalSync
 
         static async Task StartUdpDiscovery()
         {
-            int discoveryPort = 8888;
-            discoveryClient = new UdpDiscoveryClient(discoveryPort);
+            discoveryClient = new UdpDiscoveryClient(App.discoveryPort);
             await discoveryClient.SendHeartbeatAsync();
         }
 
         static async Task StartTransferFileReponsder()
         {
+            fileTransferManager = new FileTransferManager(tcpPort: App.transferPort, maxConcurrentTransfers: 5); 
             await fileTransferManager.ReceiveFilesAsync();
         }
 
@@ -217,8 +235,14 @@ namespace LocalSync
 
         private void LoadSettings()
         {
-            
-            var themeIndex = (int)(localSettings.Values["PageStyleIndex"] ?? 0);
+            int.TryParse((string)localSettings.Values["ServerPort"] ?? "8080", out int serverPort);
+            App.hostPort = serverPort;
+
+            int.TryParse((string)localSettings.Values["DiscoverPort"] ?? "8888", out int discoverPort);
+            App.discoveryPort = discoverPort;
+
+            int.TryParse((string)localSettings.Values["TransferPort"] ?? "5000", out int transferPort);
+            App.transferPort = transferPort;
         }
 
         private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
