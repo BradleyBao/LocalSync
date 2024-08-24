@@ -8,10 +8,6 @@ using System.Collections.Generic;
 using LocalSync.Modules;
 using LocalSync;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Dispatching;
-using System.Linq;
-using System.Collections.ObjectModel;
 using System.Threading;
 
 public class TcpFileClient
