@@ -23,7 +23,10 @@ using static System.Net.WebRequestMethods;
 using Windows.ApplicationModel.Resources;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.UI.Input;
-using Microsoft.UI; 
+using Microsoft.UI;
+using System.Drawing;
+using System.Windows.Controls;
+using Windows.ApplicationModel.DataTransfer;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,7 +36,7 @@ namespace LocalSync
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SenderPage : Page
+    public sealed partial class SenderPage : Microsoft.UI.Xaml.Controls.Page
     {
 
         public static ObservableCollection<Modules.File> file_send_list = new ObservableCollection<Modules.File>();
@@ -153,11 +156,7 @@ namespace LocalSync
                 file_send_list.Add(this_file);
             }
 
-            ObservableCollection<LocalSync.Modules.DataType> dataTypeList = new ObservableCollection<LocalSync.Modules.DataType>(
-                file_send_list.Cast<LocalSync.Modules.DataType>().Concat(folder_send_list.Cast<LocalSync.Modules.DataType>())
-            );
-
-            UnifiedListView.ItemsSource = dataTypeList;
+            UpdateList();
         }
 
         internal void AddFolderToList(StorageFolder folder)
@@ -171,6 +170,11 @@ namespace LocalSync
             Folder this_folder = new Folder(name, this_folder_info.LastWriteTime, folder.Path);
             folder_send_list.Add(this_folder);
 
+            UpdateList();
+        }
+
+        internal void UpdateList()
+        {
             ObservableCollection<LocalSync.Modules.DataType> dataTypeList = new ObservableCollection<LocalSync.Modules.DataType>(
                 file_send_list.Cast<LocalSync.Modules.DataType>().Concat(folder_send_list.Cast<LocalSync.Modules.DataType>())
             );
@@ -185,13 +189,13 @@ namespace LocalSync
 
         private void SelectTargetDevice_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            receiverDevice.Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundFillColorSecondaryBrush"];
+            receiverDevice.Background = (Microsoft.UI.Xaml.Media.SolidColorBrush)Application.Current.Resources["CardBackgroundFillColorSecondaryBrush"];
             
         }
 
         private void SelectTargetDevice_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            receiverDevice.Background = (SolidColorBrush)Application.Current.Resources["CardBackgroundFillColorDefaultBrush"];
+            receiverDevice.Background = (Microsoft.UI.Xaml.Media.SolidColorBrush)Application.Current.Resources["CardBackgroundFillColorDefaultBrush"];
         }
 
         internal void InitUI()
@@ -314,7 +318,64 @@ namespace LocalSync
             this.RemoveAll_SelectedUploadFiles.Label = resourceMap.GetValue("RemoveAll_SelectedUploadFiles_UID/Label", resourceContext).ValueAsString;
         }
 
+        private async void UnifiedListView_Drop(object sender, DragEventArgs e)
+        {
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                // 获取拖放的文件或文件夹
+                var items = await e.DataView.GetStorageItemsAsync();
 
+                foreach (var item in items)
+                {
+                    if (item is StorageFile file)
+                    {
+                        // 创建 File 对象并添加到 file_send_list
+                        var fileItem = new LocalSync.Modules.File(
+                            file_name: file.Name,
+                            date_modified: (await file.GetBasicPropertiesAsync()).DateModified.DateTime,
+                            file_type: file.FileType,
+                            file_size: (long)(await file.GetBasicPropertiesAsync()).Size,
+                            file_path: file.Path
+                        );
+                        file_send_list.Add(fileItem);
+                    }
+                    else if (item is StorageFolder folder)
+                    {
+                        // 创建 Folder 对象并添加到 folder_send_list
+                        var folderItem = new LocalSync.Modules.Folder(
+                            folder_name: folder.Name,
+                            date_modified: (await folder.GetBasicPropertiesAsync()).DateModified.DateTime,
+                            folder_path: folder.Path
+                        );
+                        folder_send_list.Add(folderItem);
+                    }
+                }
 
+                UpdateList();
+                DragContainer.BorderBrush = null;
+                DragContainer.BorderThickness = new Thickness(0);
+            }
+        }
+
+        private void UnifiedListView_DragEnter(object sender, DragEventArgs e)
+        {
+            
+        }
+
+        private void UnifiedListView_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                e.AcceptedOperation = DataPackageOperation.Copy;
+                DragContainer.BorderBrush = new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Red);
+                DragContainer.BorderThickness = new Thickness(2);
+            }
+        }
+
+        private void UnifiedListView_DragLeave(object sender, DragEventArgs e)
+        {
+            DragContainer.BorderBrush = null;
+            DragContainer.BorderThickness = new Thickness(0);
+        }
     }
 }

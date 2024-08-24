@@ -79,7 +79,14 @@
         </DataTemplate>-->
     </Page.Resources>
 
-    <Grid>
+    <Grid
+        DragEnter="UnifiedListView_DragEnter"
+        DragOver="UnifiedListView_DragOver"
+        DragLeave="UnifiedListView_DragLeave"
+        AllowDrop="True"
+        Drop="UnifiedListView_Drop"
+        x:Name="DragContainer"
+        >
         <Grid.RowDefinitions>
             <!--<RowDefinition Height="Auto" />-->
             <RowDefinition Height="Auto" />
@@ -297,7 +304,12 @@ Style="{StaticResource SubheaderTextBlockStyle}" />
                         SelectionMode="Extended"
                         CanDragItems="True"
                         CanReorderItems="True"
-                        AllowDrop="True">
+                        DragEnter="UnifiedListView_DragEnter"
+                        DragOver="UnifiedListView_DragOver"
+                        DragLeave="UnifiedListView_DragLeave"
+                        CanDrag="True"
+                        AllowDrop="True"
+                        Drop="UnifiedListView_Drop">
                     </ListView>
 
 

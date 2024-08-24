@@ -40,6 +40,7 @@ using Windows.Globalization;
 using Windows.ApplicationModel.Resources.Core;
 using NetFwTypeLib;
 
+
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -68,7 +69,7 @@ namespace LocalSync
         public static int transferPort = 5000;
         public static int testPort = 9999;
 
-
+        
         public static ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
         public static FileTransferManager fileTransferManager;
 
@@ -110,7 +111,7 @@ namespace LocalSync
                 mainWindow = new MainWindow();
                 mainWindow.Activate();
             }
-
+            string serverNickname = (string)localSettings.Values["PcName"] ?? System.Net.Dns.GetHostName();
             await Task.WhenAll(StartServer(), StartUdpDiscovery(), StartTransferFileReponsder());
         }
 

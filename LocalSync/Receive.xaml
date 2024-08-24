@@ -171,14 +171,14 @@
                 <ScrollViewer
                     x:Name="ExplorerView"
                     Grid.Column="0" Grid.Row="3"
-                    Padding="36,0,36,0"
+                    Padding="36,0,0,0"
                     IsTabStop="False"
                     UseSystemFocusVisuals="False"
                     Width="300"
                     VerticalScrollBarVisibility="Auto"
                     VerticalScrollMode="Auto">
 
-                    <TreeView x:Name="FileTrees"  ItemInvoked="FileTrees_ItemInvoked"
+                    <TreeView x:Name="FileTrees" Width="Auto"  ItemInvoked="FileTrees_ItemInvoked"
                     ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}"/>
 
 
@@ -187,8 +187,8 @@
                 <ScrollViewer
                 x:Name="FileManager"
                 Grid.Column="1" Grid.Row="3"
-                Padding="36,0,36,0"
                 IsTabStop="False"
+                Padding="0,0,36,0"
                 UseSystemFocusVisuals="False"
                 VerticalScrollBarVisibility="Auto"
                 VerticalScrollMode="Auto">
