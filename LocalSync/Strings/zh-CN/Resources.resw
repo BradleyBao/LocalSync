@@ -375,10 +375,16 @@
   <data name="transferPortSettingCardUid.Header" xml:space="preserve">
     <value>传输端口</value>
   </data>
+  <data name="unable_to_detect_devices" xml:space="preserve">
+    <value>仍然无法查找到网络中的设备？</value>
+  </data>
   <data name="url_of_change_port_setting_msg" xml:space="preserve">
     <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/ChangePortSetting_CN.md</value>
   </data>
   <data name="url_of_firewallerror_msg" xml:space="preserve">
     <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/FirewallIssueCN.md</value>
+  </data>
+  <data name="url_of_success_but_unable_to_detect_msg" xml:space="preserve">
+    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/Success_Unable_to_Detect_CN.md</value>
   </data>
 </root>

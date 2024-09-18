@@ -106,10 +106,14 @@ namespace LocalSync
         {
             networkDeviceInfoBar.IsOpen = true;
             networkDeviceInfoBar.Severity = InfoBarSeverity.Success;
+            networkDeviceInfoBarLearnmore.Visibility = Visibility.Visible;
             var resourceContext = App.resourceContext; // not using ResourceContext.GetForCurrentView
             var resourceMap = Windows.ApplicationModel.Resources.Core.ResourceManager.Current.MainResourceMap.GetSubtree("Resources");
             networkDeviceInfoBar.Title = resourceMap.GetValue("NetworkAccessInternetTitle", resourceContext).ValueAsString;
             networkDeviceInfoBar.Message = resourceMap.GetValue("NetworkAccessInternetMsg", resourceContext).ValueAsString;
+            networkDeviceInfoBarLearnmore.Content = resourceMap.GetValue("unable_to_detect_devices", resourceContext).ValueAsString;
+            string url_of_firewallerror_msg = resourceMap.GetValue("url_of_success_but_unable_to_detect_msg", resourceContext).ValueAsString;
+            networkDeviceInfoBarLearnmore.NavigateUri = new Uri(url_of_firewallerror_msg);
         }
 
         internal void InitUI()
