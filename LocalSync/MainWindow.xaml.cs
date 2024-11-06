@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using LocalSync.Helper;
 using Microsoft.UI;
+using Microsoft.UI.Xaml.Media.Animation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -160,37 +161,78 @@ namespace LocalSync
             
         }
 
-        public void navSwitchTo(string page)
+        public void navSwitchTo(string page, bool drilllin = false)
         {
             switch (page)
             {
                 case "Home":
-                    contentFrame.Navigate(typeof(HomePage));
+                    if (drilllin)
+                    {
+                        contentFrame.Navigate(typeof(HomePage), null, new DrillInNavigationTransitionInfo());
+                    } else
+                    {
+                        contentFrame.Navigate(typeof(HomePage));
+                    }
                     //Nav.SelectedItem = HomeNav;
                     break;
 
                 case "Receive":
-                    contentFrame.Navigate(typeof(ReceivePage));
+                    if (drilllin)
+                    {
+                        contentFrame.Navigate(typeof(ReceivePage), null, new DrillInNavigationTransitionInfo());
+                    }
+                    else
+                    {
+                        contentFrame.Navigate(typeof(ReceivePage));
+                    }
                     //Nav.SelectedItem = ReceiveNav;
                     break;
 
                 case "Send":
-                    contentFrame.Navigate(typeof(SenderPage));
+                    if (drilllin)
+                    {
+                        contentFrame.Navigate(typeof(SenderPage), null, new DrillInNavigationTransitionInfo());
+                    }
+                    else
+                    {
+                        contentFrame.Navigate(typeof(SenderPage));
+                    }
                     //Nav.SelectedItem = SenderNav;
                     break;
 
                 case "Computers":
-                    contentFrame.Navigate(typeof(OtherComputerSharing));
+                    if (drilllin)
+                    {
+                        contentFrame.Navigate(typeof(OtherComputerSharing), null, new DrillInNavigationTransitionInfo());
+                    }
+                    else
+                    {
+                        contentFrame.Navigate(typeof(OtherComputerSharing));
+                    }
                     //Nav.SelectedItem = computerSharingNav;
                     break;
 
                 case "Settings":
-                    contentFrame.Navigate(typeof(SettingPage));
+                    if (drilllin)
+                    {
+                        contentFrame.Navigate(typeof(SettingPage), null, new DrillInNavigationTransitionInfo());
+                    }
+                    else
+                    {
+                        contentFrame.Navigate(typeof(SettingPage));
+                    }
                     //Nav.SelectedItem = Nav.SettingsItem;
                     break;
 
                 default:
-                    contentFrame.Navigate(typeof(HomePage));
+                    if (drilllin)
+                    {
+                        contentFrame.Navigate(typeof(HomePage), null, new DrillInNavigationTransitionInfo());
+                    }
+                    else
+                    {
+                        contentFrame.Navigate(typeof(HomePage));
+                    }
                     //Nav.SelectedItem = HomeNav;
                     break;
             }
@@ -229,6 +271,7 @@ namespace LocalSync
                     case "Computers":
                         contentFrame.Navigate(typeof(OtherComputerSharing));
                         break;
+
                     case "Settings":
                         contentFrame.Navigate(typeof(SettingPage));
                         break; 

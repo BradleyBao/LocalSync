@@ -55,7 +55,14 @@
                         <NavigationViewItem x:Name="computerSharingNav" x:Uid="computerSharingNavUid" Tag="Computers" />
                     </NavigationView.MenuItems>
 
-                    <Frame Margin="0 0 0 0" x:Name="contentFrame" />
+                    <Frame Margin="0 0 0 0" x:Name="contentFrame">
+                        <Frame.ContentTransitions>
+                            <TransitionCollection>
+                                <NavigationThemeTransition  />
+                            </TransitionCollection>
+                        </Frame.ContentTransitions>
+
+                    </Frame>
 
                 </NavigationView>
             </Frame>

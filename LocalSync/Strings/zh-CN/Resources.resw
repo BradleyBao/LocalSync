@@ -379,12 +379,12 @@
     <value>仍然无法查找到网络中的设备？</value>
   </data>
   <data name="url_of_change_port_setting_msg" xml:space="preserve">
-    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/ChangePortSetting_CN.md</value>
+    <value>https://www.tianyibrad.com/projects/localsync_changeportsetting_cn</value>
   </data>
   <data name="url_of_firewallerror_msg" xml:space="preserve">
-    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/FirewallIssueCN.md</value>
+    <value>https://www.tianyibrad.com/projects/localsync_firewallissue_cn</value>
   </data>
   <data name="url_of_success_but_unable_to_detect_msg" xml:space="preserve">
-    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/Success_Unable_to_Detect_CN.md</value>
+    <value>https://www.tianyibrad.com/projects/localsync_success_unable_to_detect_cn</value>
   </data>
 </root>

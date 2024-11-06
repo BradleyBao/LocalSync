@@ -176,7 +176,7 @@ namespace LocalSync
             var border = sender as Border;
 
             string navPage = border.Name;
-            App.mainWindow.navSwitchTo(navPage); 
+            App.mainWindow.navSwitchTo(navPage, true); 
         }
 
         private void CardDesign_PointerEntered(object sender, PointerRoutedEventArgs e)

@@ -379,12 +379,12 @@
     <value>Cannot find your devices? </value>
   </data>
   <data name="url_of_change_port_setting_msg" xml:space="preserve">
-    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/ChangePortSetting.md</value>
+    <value>https://www.tianyibrad.com/projects/localsync_changeportsetting</value>
   </data>
   <data name="url_of_firewallerror_msg" xml:space="preserve">
-    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/FirewallIssue.md</value>
+    <value>https://www.tianyibrad.com/projects/localsync_firewallissue</value>
   </data>
   <data name="url_of_success_but_unable_to_detect_msg" xml:space="preserve">
-    <value>https://github.com/BradleyBao/LocalSync/blob/master/.github/workflows/Success_Unable_to_Detect.md</value>
+    <value>https://www.tianyibrad.com/projects/localsync_success_unable_to_detect</value>
   </data>
 </root>
